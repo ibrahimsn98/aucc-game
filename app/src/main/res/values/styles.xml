@@ -36,4 +36,8 @@
         <item name="android:itemBackground">@color/colorPrimary</item>
     </style>
 
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

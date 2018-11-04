@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.aucc.game.R
 import com.aucc.game.base.BaseActivity
 import com.aucc.game.databinding.ActivityMainBinding
+import com.aucc.game.util.AnimUtils
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -13,5 +14,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AnimUtils.hackAnimatedText(this, binding.title)
     }
 }

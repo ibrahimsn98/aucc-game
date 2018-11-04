@@ -6,7 +6,7 @@ import android.arch.persistence.room.*
 @Dao
 interface LevelDao {
 
-    @get:Query("SELECT * FROM levels ORDER BY id DESC")
+    @get:Query("SELECT * FROM levels ORDER BY id ASC")
     val getAll: DataSource.Factory<Int, Level>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

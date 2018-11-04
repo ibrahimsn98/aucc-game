@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable name="level" type="com.aucc.game.data.level.Level"/>
+    </data>
+
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -19,12 +23,12 @@
                 android:background="@drawable/ic_hexa">
 
             <TextView
+                    android:text="@{String.valueOf(level.id)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
                     android:layout_gravity="center"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="15sp"/>
+                    android:textSize="17sp"/>
 
         </FrameLayout>
 
@@ -34,19 +38,19 @@
                 android:orientation="vertical">
 
                 <TextView
+                        android:text='@{"[" + level.title + "]"}'
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="[ Excellent Quest 3 ]"
                         android:textSize="15sp"
                         android:layout_marginBottom="5dp"
                         android:textColor="@color/colorAccent"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="15sp"
-                    android:text="Lorem ipsum dolor sit amet, vim eu justo saperet detracto, nec no vero soleat eleifend. Eam verterem recusabo an."/>
+                        android:text="@{level.desc}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="15sp"/>
 
         </LinearLayout>
 

@@ -12,6 +12,7 @@
         <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_behavior="com.aucc.game.util.FixAppBarBehavior"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 android:id="@+id/appBarLayout">
 
@@ -19,13 +20,15 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|enterAlways"
                     android:background="@color/colorPrimary"
                     app:popupTheme="@style/optionsMenuStyle">
 
                 <TextView
+                        android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/app_name"
+                        android:text="[ AU Cyber Club ]"
                         android:textColor="@color/white"
                         android:textSize="17sp"/>
 
@@ -40,7 +43,19 @@
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 app:navGraph="@navigation/nav_graph"
                 app:defaultNavHost="true"
+                android:layout_marginBottom="46dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottomNavigationView"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom"
+                android:background="@color/colorBackground"
+                android:theme="@style/Widget.BottomNavigationView"
+                app:menu="@menu/bottom_menu"
+                app:itemTextColor="@drawable/bottom_nav_item_back"
+                app:itemIconTint="@drawable/bottom_nav_item_back"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

@@ -34,26 +34,34 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
     inner class LevelLViewHolder(private val binding: RowLevelLBinding) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var level: Level
+        private var onBind = false
 
         init {
-            itemView.setOnClickListener { adapterCallback.onRequestClicked(level) }
+            itemView.setOnClickListener { if (!onBind) adapterCallback.onRequestClicked(level) }
         }
 
         fun bind(level: Level) {
+            onBind = true
             this.level = level
+            binding.level = level
+            onBind = false
         }
     }
 
     inner class LevelRViewHolder(private val binding: RowLevelRBinding) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var level: Level
+        private var onBind = false
 
         init {
-            itemView.setOnClickListener { adapterCallback.onRequestClicked(level) }
+            itemView.setOnClickListener { if (!onBind) adapterCallback.onRequestClicked(level) }
         }
 
         fun bind(level: Level) {
+            onBind = true
             this.level = level
+            binding.level = level
+            onBind = false
         }
     }
 
