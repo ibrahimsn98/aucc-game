@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/nav_graph.xml" app:startDestination="@id/homeFragment">
-
+            android:id="@+id/nav_graph.xml" app:startDestination="@id/levelsFragment">
 
     <fragment android:id="@+id/homeFragment" android:name="com.aucc.game.ui.home.HomeFragment"
               android:label="HomeFragment">
-        <action android:id="@+id/home_to_levels" app:destination="@id/levelsFragment"/>
     </fragment>
     <fragment android:id="@+id/levelsFragment" android:name="com.aucc.game.ui.levels.LevelsFragment"
               android:label="LevelsFragment"/>

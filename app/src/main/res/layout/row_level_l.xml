@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground">
+
+        <FrameLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/ic_hexa">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="15sp"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="[ Excellent Quest 3 ]"
+                        android:textSize="15sp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorAccent"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="15sp"
+                    android:text="Lorem ipsum dolor sit amet, vim eu justo saperet detracto, nec no vero soleat eleifend. Eam verterem recusabo an."/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
