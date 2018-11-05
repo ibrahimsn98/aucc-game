@@ -32,12 +32,4 @@ class BottomNavBehavior : CoordinatorLayout.Behavior<BottomNavigationView> {
             snackbarLayout.layoutParams = params
         }
     }
-
-    private fun hideBottomNavigationView(view: BottomNavigationView) {
-        view.animate().translationY(view.height.toFloat())
-    }
-
-    private fun showBottomNavigationView(view: BottomNavigationView) {
-        view.animate().translationY(0f)
-    }
 }

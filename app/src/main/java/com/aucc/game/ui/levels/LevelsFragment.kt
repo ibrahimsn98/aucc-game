@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.arch.paging.PagedList
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -11,10 +12,12 @@ import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
 import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.FragmentLevelsBinding
+import com.aucc.game.ui.game.GameFragment
+import com.aucc.game.ui.game.GameViewModel
 import com.aucc.game.ui.main.MainActivity
 import javax.inject.Inject
 
-class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>() {
+class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), LevelsAdapter.AdapterCallback {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -29,11 +32,7 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(activity, viewModelFactory).get(LevelsViewModel::class.java)
 
-        levelsAdapter = LevelsAdapter(object: LevelsAdapter.AdapterCallback {
-            override fun onRequestClicked(level: Level) {
-
-            }
-        })
+        levelsAdapter = LevelsAdapter(this)
 
         binding.levels.layoutManager = LinearLayoutManager(activity)
         binding.levels.adapter = levelsAdapter
@@ -41,5 +40,9 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>() {
         viewModel.levels.observe(this, Observer<PagedList<Level>> {
             levels -> if (levels != null) levelsAdapter.submitList(levels)
         })
+    }
+
+    override fun onLevelClicked(level: Level) {
+        activity.openLevel(level)
     }
 }

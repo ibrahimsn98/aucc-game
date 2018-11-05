@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/platforms"
+    <item android:id="@+id/home"
           android:icon="@drawable/baseline_bug_report_24"
-          android:title="Lorem"/>
+          android:title="Home"/>
 
-    <item android:id="@+id/featured"
+    <item android:id="@+id/levels"
           android:icon="@drawable/baseline_code_24"
           android:title="Quests"/>
 

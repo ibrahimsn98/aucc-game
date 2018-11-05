@@ -8,7 +8,9 @@ import android.support.v7.util.DiffUtil
 @Entity(tableName = "levels")
 data class Level(@ColumnInfo(name = "title") val title: String,
                  @ColumnInfo(name = "desc") val desc: String,
-                 @ColumnInfo(name = "completed") val completed: Boolean) {
+                 @ColumnInfo(name = "completed") val completed: Boolean,
+                 @ColumnInfo(name = "question") val question: String,
+                 @ColumnInfo(name = "answer") val answer: String) {
 
     @PrimaryKey(autoGenerate = true) var id: Int? = null
 
@@ -19,7 +21,9 @@ data class Level(@ColumnInfo(name = "title") val title: String,
             override fun areContentsTheSame(oldItem: Level, newItem: Level): Boolean =
                             oldItem.id == newItem.id &&
                             oldItem.title == newItem.title &&
-                            oldItem.desc == oldItem.desc
+                            oldItem.desc == newItem.desc &&
+                            oldItem.question == newItem.question &&
+                            oldItem.answer == newItem.answer
         }
     }
 }

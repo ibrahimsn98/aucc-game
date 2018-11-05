@@ -18,7 +18,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getAppDatabase(app: Application): AppDatabase {
             if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(app, AppDatabase::class.java, "aucc")
+                INSTANCE = Room.databaseBuilder(app, AppDatabase::class.java, "auccc")
                     .allowMainThreadQueries().build()
             }
 

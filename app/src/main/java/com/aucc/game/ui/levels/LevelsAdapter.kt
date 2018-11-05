@@ -37,7 +37,7 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
         private var onBind = false
 
         init {
-            itemView.setOnClickListener { if (!onBind) adapterCallback.onRequestClicked(level) }
+            itemView.setOnClickListener { if (!onBind) adapterCallback.onLevelClicked(level) }
         }
 
         fun bind(level: Level) {
@@ -54,7 +54,7 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
         private var onBind = false
 
         init {
-            itemView.setOnClickListener { if (!onBind) adapterCallback.onRequestClicked(level) }
+            itemView.setOnClickListener { if (!onBind) adapterCallback.onLevelClicked(level) }
         }
 
         fun bind(level: Level) {
@@ -66,6 +66,6 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
     }
 
     interface AdapterCallback {
-        fun onRequestClicked(level: Level)
+        fun onLevelClicked(level: Level)
     }
 }
