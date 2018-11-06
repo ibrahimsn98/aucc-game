@@ -3,29 +3,25 @@ package com.aucc.game.ui.main
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.view.MenuItem
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.aucc.game.R
 import com.aucc.game.base.BaseActivity
 import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.ActivityMainBinding
-import com.aucc.game.ui.game.GameFragment
 import com.aucc.game.ui.game.GameViewModel
-import com.aucc.game.ui.home.HomeFragment
-import com.aucc.game.ui.levels.LevelsFragment
 import com.aucc.game.util.AnimUtils
 import com.aucc.game.util.BottomNavigationViewUtil
-import java.util.ArrayList
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnNavigatedListener {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val callbacks = ArrayList<MainCallback>()
-    private var current = -1
+    private lateinit var navController: NavController
 
     override fun layoutRes(): Int {
         return R.layout.activity_main
@@ -36,43 +32,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         AnimUtils.hackAnimatedText(this, binding.title)
 
         setSupportActionBar(binding.toolbar)
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener(this)
+
+        navController = findNavController(this, R.id.host)
+        binding.bottomNavigationView.setupWithNavController(navController)
+        navController.addOnNavigatedListener(this)
 
         BottomNavigationViewUtil.disableShiftMode(binding.bottomNavigationView)
-
-        if (savedInstanceState == null)
-            binding.bottomNavigationView.selectedItemId = R.id.home
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        loadFragment(when (item.itemId) {
-            0 -> HomeFragment()
-            R.id.levels -> LevelsFragment()
-            else ->  HomeFragment()
-        }, item.itemId)
-
-        return true
+    override fun onNavigated(controller: NavController, destination: NavDestination) {
+        binding.appBarLayout.setExpanded(true, true)
     }
 
     fun openLevel(level: Level) {
-        openToolbar()
         val gameViewModel = ViewModelProviders.of(this, viewModelFactory).get(GameViewModel::class.java)
         gameViewModel.level.value = level
-        supportFragmentManager.beginTransaction().addToBackStack("game").replace(R.id.host, GameFragment()).commit()
-    }
-
-    fun clearFragmentStack() {
-        supportFragmentManager.popBackStack("game", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-    }
-
-    private fun loadFragment(fragment: Fragment, id: Int) {
-        openToolbar()
-        if (id != current) {
-            current = id
-            supportFragmentManager.beginTransaction().replace(R.id.host, fragment).commit()
-        } else {
-            for (mainCallback in callbacks) mainCallback.onMenuReselected()
-        }
+        navController.navigate(R.id.levels_to_game)
     }
 
     fun setBottomNavVisibility(visible: Boolean) {
@@ -80,19 +55,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         else binding.bottomNavigationView.animate().translationY(binding.bottomNavigationView.height.toFloat())
     }
 
-    private fun openToolbar() {
-        binding.appBarLayout.setExpanded(true, true)
-    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> navController.navigateUp()
+        }
 
-    fun addMainCallback(mainCallback: MainCallback) {
-        callbacks.add(mainCallback)
-    }
-
-    fun removeMainCallback(mainCallback: MainCallback) {
-        callbacks.remove(mainCallback)
-    }
-
-    interface MainCallback {
-        fun onMenuReselected()
+        return super.onOptionsItemSelected(item)
     }
 }
