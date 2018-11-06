@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.Html
 import android.text.TextWatcher
@@ -26,6 +27,7 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private lateinit var terminalAdapter: TerminalAdapter
     private lateinit var viewModel: GameViewModel
 
     override fun onAttach(context: Context?) {
@@ -48,6 +50,14 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(activity, viewModelFactory).get(GameViewModel::class.java)
 
+        terminalAdapter = TerminalAdapter()
+
+        binding.nestedScrollView.isNestedScrollingEnabled = true
+        binding.terminalHistory.isNestedScrollingEnabled = false
+
+        binding.terminalHistory.layoutManager = LinearLayoutManager(activity)
+        binding.terminalHistory.adapter = terminalAdapter
+
         binding.terminal.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
@@ -61,10 +71,9 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
                 if( -1 != s.toString().indexOf("\n") ){
                     if (binding.terminal.text.toString() != "") {
                         if (binding.terminal.text.toString() == "clear\n") {
-                            binding.terminalHistory.text = "Shell initialized!"
+                            terminalAdapter.clearLines()
                         } else {
-                            binding.terminalHistory.append(Html.fromHtml("<br><font color='#9acc14'>root@aucc:~/$</font> ${binding.terminal.text}"))
-                            binding.terminalHistory.append("\nCommand not found: ${binding.terminal.text}")
+                            terminalAdapter.addLine(TerminalAdapter.TerminalLine(binding.terminal.text.toString()))
                         }
                     }
 
@@ -73,26 +82,6 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
             }
 
         })
-
-        /*binding.terminal.setOnKeyListener { _, keyCode, event ->
-
-            Log.d("###", "dene" + keyCode.toString())
-
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                if (binding.terminal.text.toString() != "") {
-                    if (binding.terminal.text.toString() == "clear") {
-                        binding.terminalHistory.text = "Shell initialized!"
-                    }else {
-                        binding.terminalHistory.append(Html.fromHtml("<br><font color='#9acc14'>root@aucc:~/$</font> ${binding.terminal.text}"))
-                        binding.terminalHistory.append("\nCommand not found: ${binding.terminal.text}")
-                    }
-                }
-
-                binding.terminal.text.clear()
-
-                true
-            } else false
-        }*/
 
         viewModel.level.observe(this, Observer<Level> {
             level -> if (level != null) binding.level = level
