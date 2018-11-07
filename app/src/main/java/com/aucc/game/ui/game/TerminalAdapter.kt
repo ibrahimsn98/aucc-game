@@ -36,12 +36,10 @@ class TerminalAdapter : RecyclerView.Adapter<TerminalAdapter.LineViewHolder>() {
 
     inner class LineViewHolder(private val binding: RowTerminalBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        private lateinit var line: TerminalLine
-
         fun bind(line: TerminalLine) {
             binding.command = line
         }
     }
 
-    data class TerminalLine(val command: String)
+    data class TerminalLine(val command: String, val isResponse: Boolean)
 }

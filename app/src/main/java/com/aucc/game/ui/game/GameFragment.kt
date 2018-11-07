@@ -7,21 +7,14 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
-import android.text.Html
 import android.text.TextWatcher
-import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
 import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.FragmentGameBinding
 import com.aucc.game.ui.main.MainActivity
-import com.aucc.game.util.TermEditText
 import javax.inject.Inject
-import android.view.KeyEvent.KEYCODE_ENTER
-
-
 
 class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
@@ -69,11 +62,15 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if( -1 != s.toString().indexOf("\n") ){
-                    if (binding.terminal.text.toString() != "") {
-                        if (binding.terminal.text.toString() == "clear\n") {
+
+                    val text = binding.terminal.text.toString().trim()
+
+                    if (text != "") {
+                        if (text == "clear") {
                             terminalAdapter.clearLines()
                         } else {
-                            terminalAdapter.addLine(TerminalAdapter.TerminalLine(binding.terminal.text.toString()))
+                            terminalAdapter.addLine(TerminalAdapter.TerminalLine(text, false))
+                            terminalAdapter.addLine(TerminalAdapter.TerminalLine("$text: command not found!", true))
                         }
                     }
 
