@@ -44,6 +44,7 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
             onBind = true
             this.level = level
             binding.level = level
+            binding.row = adapterPosition + 1
             onBind = false
         }
     }
@@ -61,6 +62,7 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
             onBind = true
             this.level = level
             binding.level = level
+            binding.row = adapterPosition + 1
             onBind = false
         }
     }

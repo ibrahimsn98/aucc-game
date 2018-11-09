@@ -3,6 +3,7 @@
 
     <data>
         <variable name="level" type="com.aucc.game.data.level.Level"/>
+        <variable name="row" type="int"/>
     </data>
 
     <LinearLayout
@@ -23,7 +24,7 @@
                 android:background="@drawable/ic_hexa">
 
             <TextView
-                    android:text="@{String.valueOf(level.id)}"
+                    android:text="@{String.valueOf(row)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

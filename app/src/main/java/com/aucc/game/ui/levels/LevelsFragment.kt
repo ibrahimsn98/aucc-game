@@ -34,6 +34,10 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), Leve
         binding.levels.layoutManager = LinearLayoutManager(activity)
         binding.levels.adapter = levelsAdapter
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+
         viewModel.levels.observe(this, Observer<PagedList<Level>> {
             levels -> if (levels != null) levelsAdapter.submitList(levels)
         })
