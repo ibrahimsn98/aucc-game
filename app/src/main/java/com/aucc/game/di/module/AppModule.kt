@@ -1,9 +1,6 @@
 package com.aucc.game.di.module
 
-import android.app.Application
 import android.content.Context
-import com.aucc.game.data.database.AppDatabase
-import com.aucc.game.data.level.LevelDao
 import com.aucc.game.util.PrefUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -25,23 +22,11 @@ class AppModule {
         return db
     }
 
-    @Provides
+    /*@Provides
     @Singleton
     internal fun provideRoomDatabase(app: Application): AppDatabase {
         return AppDatabase.getAppDatabase(app)
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideLevelDao(appDatabase: AppDatabase): LevelDao {
-        return appDatabase.levelDao()
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideStepDao(appDatabase: AppDatabase): StepDao {
-        return appDatabase.stepDao()
-    }
+    }*/
 
     @Provides
     @Singleton

@@ -1,25 +1,35 @@
 package com.aucc.game.ui.levels
 
-import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.aucc.game.data.level.Level
-import com.aucc.game.data.level.LevelRepository
+import com.aucc.game.data.level.LevelDataSource
+import com.aucc.game.util.MainThreadExecutor
+import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
-class LevelsViewModel @Inject constructor(levelRepository: LevelRepository, stepRepository: StepRepository) : ViewModel() {
+class LevelsViewModel @Inject constructor(firestore: FirebaseFirestore) : ViewModel() {
 
-    val levels: LiveData<PagedList<Level>> = LivePagedListBuilder(levelRepository.getAll, PagedList.Config.Builder()
-        .setEnablePlaceholders(true)
-        .setPrefetchDistance(10)
-        .setPageSize(20).build())
-        .build()
+    private val dataSource: LevelDataSource
+    private val executor = MainThreadExecutor()
+
+    private var levelDoc = firestore.collection("levels")
+    val levels = MutableLiveData<PagedList<Level>>()
 
     init {
-        /*levelRepository.insert(
-            Level("Excellent Question", "Lorem ipsum dolor sit amet, dignissim definiebas mediocritatem his in",
-            false, "Lorem ipsum dolor sit amet, dignissim definiebas mediocritatem his in, posse ipsum inimicus mel ne, mutat adhuc prompta nam id. Cu usu unum velit quaeque.",
-                "deneme"))*/
+        dataSource = LevelDataSource(levelDoc, object: LevelDataSource.DataSourceCallback {
+            override fun loading(isLoading: Boolean) {
+
+            }
+
+            override fun onError(message: String) {
+
+            }
+        })
+
+        levels.value = PagedList.Builder(dataSource, PagedList.Config.Builder()
+            .setPageSize(100).setEnablePlaceholders(true).build())
+            .setFetchExecutor(executor).setNotifyExecutor(executor).build()
     }
 }
