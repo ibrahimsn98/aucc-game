@@ -39,6 +39,12 @@ class AppModule {
 
     @Provides
     @Singleton
+    internal fun provideStepDao(appDatabase: AppDatabase): StepDao {
+        return appDatabase.stepDao()
+    }
+
+    @Provides
+    @Singleton
     internal fun provideGlide(context: Context): RequestManager {
         return Glide.with(context)
     }
