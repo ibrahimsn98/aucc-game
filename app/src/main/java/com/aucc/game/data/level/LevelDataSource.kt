@@ -1,17 +1,18 @@
 package com.aucc.game.data.level
 
 import android.arch.paging.PageKeyedDataSource
+import android.util.Log
+import com.aucc.game.util.Constants
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.Source
 
 class LevelDataSource(private val collection: CollectionReference,
                       private val dataSourceCallback: DataSourceCallback) : PageKeyedDataSource<Int, Level>() {
 
     override fun loadInitial(params: PageKeyedDataSource.LoadInitialParams<Int>,
                              callback: PageKeyedDataSource.LoadInitialCallback<Int, Level>) {
-        dataSourceCallback.loading(true)
 
-        collection.get().addOnSuccessListener { p ->
-            dataSourceCallback.loading(false)
+        collection.get(Source.CACHE).addOnSuccessListener { p ->
             callback.onResult(
                 p.toObjects(Level::class.java),
                 0,
@@ -20,7 +21,7 @@ class LevelDataSource(private val collection: CollectionReference,
                 2
             )
         }.addOnFailureListener { e ->
-            dataSourceCallback.loading(true)
+            Log.d(Constants.TAG, e.message)
             dataSourceCallback.onError("Error: ${e.message}")
         }
     }
@@ -34,7 +35,6 @@ class LevelDataSource(private val collection: CollectionReference,
     }
 
     interface DataSourceCallback {
-        fun loading(isLoading: Boolean)
         fun onError(message: String)
     }
 }

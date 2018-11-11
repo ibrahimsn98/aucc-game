@@ -15,14 +15,11 @@ class LevelsViewModel @Inject constructor(firestore: FirebaseFirestore) : ViewMo
     private val executor = MainThreadExecutor()
 
     private var levelDoc = firestore.collection("levels")
+
     val levels = MutableLiveData<PagedList<Level>>()
 
     init {
         dataSource = LevelDataSource(levelDoc, object: LevelDataSource.DataSourceCallback {
-            override fun loading(isLoading: Boolean) {
-
-            }
-
             override fun onError(message: String) {
 
             }

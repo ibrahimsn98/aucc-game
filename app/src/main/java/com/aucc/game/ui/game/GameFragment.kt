@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
@@ -80,8 +81,13 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
         })
 
-        viewModel.level.observe(this, Observer<Level> {
-            level -> if (level != null) binding.level = level
+        viewModel.level.observe(this, Observer<Level> { level ->
+            if (level != null) {
+                binding.level = level
+
+                if (level.steps != null)
+                    Log.d("###", level.steps[0]["desc"].toString())
+            }
         })
     }
 }

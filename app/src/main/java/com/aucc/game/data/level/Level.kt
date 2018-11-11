@@ -7,7 +7,7 @@ data class Level(val id: String = "",
                  val desc: String = "",
                  val question: String = "",
                  val answer: String = "",
-                 val steps: List<Step> = listOf()) {
+                 val steps: ArrayList<Map<String, *>>? = null) {
 
     companion object {
         val DiffCallback = object : DiffUtil.ItemCallback<Level>() {

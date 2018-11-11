@@ -1,5 +1,6 @@
 package com.aucc.game.ui.start
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -17,7 +18,12 @@ class StartActivity : DaggerAppCompatActivity() {
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory).get(StartViewModel::class.java)
 
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
+        viewModel.status.observe(this, Observer { status ->
+            if (status != null)
+                if (status) {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+        })
     }
 }
