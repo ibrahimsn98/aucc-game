@@ -20,7 +20,7 @@ object BottomNavigationViewUtil {
 
             for (i in 0 until menuView.childCount) {
                 val item = menuView.getChildAt(i) as BottomNavigationItemView
-                item.setShiftingMode(false)
+                item.setShifting(false)
                 item.setChecked(item.itemData.isChecked)
             }
 
