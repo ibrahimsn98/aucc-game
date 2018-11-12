@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
@@ -22,6 +23,7 @@ import com.aucc.game.base.BaseFragment
 import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.FragmentGameBinding
 import com.aucc.game.ui.main.MainActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_game_step.*
 import kotlinx.android.synthetic.main.dialog_game_step.view.*
 import javax.inject.Inject
@@ -106,18 +108,28 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
         if (answer == step["expected_answer"].toString()) {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["true_answer"].toString(), true))
+            showMessage(step["desc"].toString())
         }else {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine("$answer: command not found!", true))
         }
     }
 
     @SuppressLint("InflateParams")
-    private fun openStepDialog(title: String, content: String) {
-        val dView = LayoutInflater.from(activity).inflate(R.layout.dialog_game_step, null)
-        val dialog = AlertDialog.Builder(activity).setView(dView).create()
-        dView.title.text = "Lorem ipsum"
-        dView.content.text = "Lorem ipsum dolor sit amet"
-        dView.ok.setOnClickListener { dialog.dismiss() }
-        dialog.show()
+    private fun showMessage(msg: String): Snackbar {
+        val snackbar = Snackbar.make(activity.coordinator, msg, Snackbar.LENGTH_INDEFINITE)
+        val textView = snackbar.view.findViewById(android.support.design.R.id.snackbar_text) as TextView
+        val button = snackbar.view.findViewById(android.support.design.R.id.snackbar_action) as Button
+
+        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_svg_hacker, 0, 0, 0)
+        textView.compoundDrawablePadding = resources.getDimensionPixelOffset(R.dimen.snackbar_icon_padding)
+        textView.textSize = 16F
+        textView.maxLines = 5
+
+        button.textSize = 17F
+
+        snackbar.setAction("OK") { snackbar.dismiss() }
+        snackbar.show()
+
+        return snackbar
     }
 }

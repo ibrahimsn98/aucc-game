@@ -13,4 +13,7 @@
 
     <fragment android:id="@+id/gameFragment" android:name="com.aucc.game.ui.game.GameFragment"
               android:label="GameFragment"/>
+
+    <fragment android:id="@+id/profileFragment" android:name="com.aucc.game.ui.profile.ProfileFragment"
+              android:label="ProfileFragment"/>
 </navigation>
