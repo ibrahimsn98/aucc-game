@@ -10,7 +10,7 @@
           android:title="Quests"/>
 
     <item android:id="@+id/profileFragment"
-          android:icon="@drawable/baseline_vpn_key_24"
+          android:icon="@drawable/outline_account_circle_24"
           android:title="Profile"/>
 
 </menu>

@@ -31,6 +31,13 @@
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="17sp"/>
 
+            <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/outline_done_24"
+                    android:tint="@color/white"
+                    android:layout_gravity="bottom|end"/>
+
         </FrameLayout>
 
         <LinearLayout
