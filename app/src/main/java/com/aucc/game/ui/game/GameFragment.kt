@@ -23,6 +23,7 @@ import com.aucc.game.base.BaseFragment
 import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.FragmentGameBinding
 import com.aucc.game.ui.main.MainActivity
+import com.aucc.game.util.PrefUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_game_step.*
 import kotlinx.android.synthetic.main.dialog_game_step.view.*
@@ -30,6 +31,7 @@ import javax.inject.Inject
 
 class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
+    @Inject lateinit var prefUtils: PrefUtils
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var terminalAdapter: TerminalAdapter
@@ -109,6 +111,7 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
         if (answer == step["expected_answer"].toString()) {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["true_answer"].toString(), true))
             showMessage(step["desc"].toString())
+            prefUtils.addCompletedLevel(level.id)
         }else {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine("$answer: command not found!", true))
         }

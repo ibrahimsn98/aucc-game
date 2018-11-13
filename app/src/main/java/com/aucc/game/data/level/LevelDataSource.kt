@@ -13,8 +13,19 @@ class LevelDataSource(private val collection: CollectionReference,
                              callback: PageKeyedDataSource.LoadInitialCallback<Int, Level>) {
 
         collection.get(Source.CACHE).addOnSuccessListener { p ->
+
+            val list = mutableListOf<Level>()
+
+            for (a in p.documents) {
+                val b = a.toObject(Level::class.java)
+                if (b != null) {
+                    b.id = a.id
+                    list.add(b)
+                }
+            }
+
             callback.onResult(
-                p.toObjects(Level::class.java),
+                list,
                 0,
                 p.size(),
                 null,
