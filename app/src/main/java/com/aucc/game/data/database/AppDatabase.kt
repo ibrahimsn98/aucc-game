@@ -4,10 +4,13 @@ import android.app.Application
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
-import com.aucc.game.data.level.Level
+import com.aucc.game.data.quest.Quest
+import com.aucc.game.data.quest.QuestDao
 
-/*@Database(entities = [], version = 1, exportSchema = false)
+@Database(entities = [Quest::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun questDao(): QuestDao
 
     companion object {
 
@@ -22,4 +25,4 @@ abstract class AppDatabase : RoomDatabase() {
             return INSTANCE as AppDatabase
         }
     }
-}*/
+}

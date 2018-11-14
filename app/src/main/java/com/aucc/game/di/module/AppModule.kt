@@ -1,6 +1,9 @@
 package com.aucc.game.di.module
 
+import android.app.Application
 import android.content.Context
+import com.aucc.game.data.database.AppDatabase
+import com.aucc.game.data.quest.QuestDao
 import com.aucc.game.util.PrefUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -22,11 +25,17 @@ class AppModule {
         return db
     }
 
-    /*@Provides
+    @Provides
     @Singleton
     internal fun provideRoomDatabase(app: Application): AppDatabase {
         return AppDatabase.getAppDatabase(app)
-    }*/
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideQuestDao(appDatabase: AppDatabase): QuestDao {
+        return appDatabase.questDao()
+    }
 
     @Provides
     @Singleton
