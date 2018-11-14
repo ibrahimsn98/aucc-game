@@ -4,6 +4,7 @@
     <data>
         <variable name="level" type="com.aucc.game.data.level.Level"/>
         <variable name="row" type="int"/>
+        <variable name="completed" type="boolean"/>
     </data>
 
     <LinearLayout
@@ -32,10 +33,14 @@
                     android:textSize="17sp"/>
 
             <ImageView
+                    android:visible="@{completed}"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/outline_done_24"
+                    android:elevation="3dp"
                     android:tint="@color/white"
+                    android:padding="2dp"
+                    android:background="@drawable/ic_completed_background"
                     android:layout_gravity="bottom|end"/>
 
         </FrameLayout>

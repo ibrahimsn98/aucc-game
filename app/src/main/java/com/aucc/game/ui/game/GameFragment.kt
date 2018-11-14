@@ -5,16 +5,11 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -25,8 +20,6 @@ import com.aucc.game.databinding.FragmentGameBinding
 import com.aucc.game.ui.main.MainActivity
 import com.aucc.game.util.PrefUtils
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_game_step.*
-import kotlinx.android.synthetic.main.dialog_game_step.view.*
 import javax.inject.Inject
 
 class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
@@ -111,7 +104,7 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
         if (answer == step["expected_answer"].toString()) {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["true_answer"].toString(), true))
             showMessage(step["desc"].toString())
-            prefUtils.addCompletedLevel(level.id)
+            prefUtils.addCompletedLevel(level)
         }else {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine("$answer: command not found!", true))
         }

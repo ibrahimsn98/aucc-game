@@ -9,8 +9,10 @@ import com.aucc.game.R
 import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.RowLevelLBinding
 import com.aucc.game.databinding.RowLevelRBinding
+import com.aucc.game.util.PrefUtils
 
-class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAdapter<Level, RecyclerView.ViewHolder>(Level.DiffCallback) {
+class LevelsAdapter(private val prefUtils: PrefUtils,
+                    private val adapterCallback: AdapterCallback) : PagedListAdapter<Level, RecyclerView.ViewHolder>(Level.DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == 0) return LevelLViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context),
@@ -45,6 +47,7 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
             this.level = level
             binding.level = level
             binding.row = adapterPosition + 1
+            binding.completed = prefUtils.getCompletedLevels().contains(level.id)
             onBind = false
         }
     }
@@ -63,6 +66,7 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
             this.level = level
             binding.level = level
             binding.row = adapterPosition + 1
+            binding.completed = prefUtils.getCompletedLevels().contains(level.id)
             onBind = false
         }
     }

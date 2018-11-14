@@ -12,10 +12,12 @@ import com.aucc.game.base.BaseFragment
 import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.FragmentLevelsBinding
 import com.aucc.game.ui.main.MainActivity
+import com.aucc.game.util.PrefUtils
 import javax.inject.Inject
 
 class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), LevelsAdapter.AdapterCallback {
 
+    @Inject lateinit var prefUtils: PrefUtils
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var levelsAdapter: LevelsAdapter
@@ -29,7 +31,7 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), Leve
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(activity, viewModelFactory).get(LevelsViewModel::class.java)
 
-        levelsAdapter = LevelsAdapter(this)
+        levelsAdapter = LevelsAdapter(prefUtils,this)
 
         binding.levels.layoutManager = LinearLayoutManager(activity)
         binding.levels.adapter = levelsAdapter
