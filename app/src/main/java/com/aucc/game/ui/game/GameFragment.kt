@@ -25,7 +25,7 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var terminalAdapter: TerminalAdapter
+    private val terminalAdapter = TerminalAdapter()
     private lateinit var viewModel: GameViewModel
 
     private lateinit var level: Level
@@ -50,8 +50,6 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(activity, viewModelFactory).get(GameViewModel::class.java)
-
-        terminalAdapter = TerminalAdapter()
 
         binding.nestedScrollView.isNestedScrollingEnabled = true
         binding.terminalHistory.isNestedScrollingEnabled = false
