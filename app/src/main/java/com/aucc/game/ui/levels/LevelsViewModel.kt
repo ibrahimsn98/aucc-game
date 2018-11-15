@@ -5,15 +5,17 @@ import android.arch.lifecycle.ViewModel
 import android.arch.paging.PagedList
 import com.aucc.game.data.level.Level
 import com.aucc.game.data.level.LevelDataSource
+import com.aucc.game.data.quest.QuestRepository
 import com.aucc.game.util.MainThreadExecutor
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
-class LevelsViewModel @Inject constructor(firestore: FirebaseFirestore) : ViewModel() {
+class LevelsViewModel @Inject constructor(firestore: FirebaseFirestore, questRepository: QuestRepository) : ViewModel() {
 
     private val dataSource: LevelDataSource
     private val executor = MainThreadExecutor()
 
+    val questIds = questRepository.getIdList
     private var levelDoc = firestore.collection("levels")
 
     val levels = MutableLiveData<PagedList<Level>>()

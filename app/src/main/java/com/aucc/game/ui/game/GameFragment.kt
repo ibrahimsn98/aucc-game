@@ -18,13 +18,11 @@ import com.aucc.game.base.BaseFragment
 import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.FragmentGameBinding
 import com.aucc.game.ui.main.MainActivity
-import com.aucc.game.util.PrefUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
-    @Inject lateinit var prefUtils: PrefUtils
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var terminalAdapter: TerminalAdapter
@@ -104,9 +102,17 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
         if (answer == step["expected_answer"].toString()) {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["true_answer"].toString(), true))
             showMessage(step["desc"].toString())
-            prefUtils.addCompletedLevel(level)
+            viewModel.setLevelCompleted(level)
         }else {
-            terminalAdapter.addLine(TerminalAdapter.TerminalLine("$answer: command not found!", true))
+            terminalAdapter.addLine(TerminalAdapter.TerminalLine(
+                compareAnswers(answer, step["expected_answer"].toString()), true))
+        }
+    }
+
+    private fun compareAnswers(answer: String, trueAnswer: String): String {
+        return when {
+            trueAnswer.startsWith(answer) -> "You missing something.."
+            else -> "Wrong move.. You can try again!"
         }
     }
 

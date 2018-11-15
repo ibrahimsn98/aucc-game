@@ -7,6 +7,8 @@ class QuestRepository @Inject constructor(private val questDao: QuestDao) {
 
     val getAll: DataSource.Factory<Int, Quest> get() = questDao.getAll
 
+    val getIdList: List<String> get() = questDao.getIdList
+
     fun insert(vararg quests: Quest): Long {
         return questDao.insert(*quests)[0]
     }

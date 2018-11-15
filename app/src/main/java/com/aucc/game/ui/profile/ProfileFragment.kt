@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
@@ -15,6 +16,7 @@ class ProfileFragment : BaseFragment<MainActivity, FragmentProfileBinding>() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private val questAdapter = QuestAdapter()
     private lateinit var viewModel: ProfileViewModel
 
     override fun layoutRes(): Int {
@@ -25,8 +27,14 @@ class ProfileFragment : BaseFragment<MainActivity, FragmentProfileBinding>() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(activity, viewModelFactory).get(ProfileViewModel::class.java)
 
-        viewModel.quests.observe(this, Observer { quests ->
+        binding.nestedScrollView.isNestedScrollingEnabled = true
+        binding.completedQuests.isNestedScrollingEnabled = false
 
+        binding.completedQuests.layoutManager = LinearLayoutManager(activity)
+        binding.completedQuests.adapter = questAdapter
+
+        viewModel.quests.observe(this, Observer { quests ->
+            if (quests != null) questAdapter.submitList(quests)
         })
     }
 }

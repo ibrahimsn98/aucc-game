@@ -6,6 +6,7 @@ import com.aucc.game.di.util.ViewModelFactory
 import com.aucc.game.di.util.ViewModelKey
 import com.aucc.game.ui.game.GameViewModel
 import com.aucc.game.ui.levels.LevelsViewModel
+import com.aucc.game.ui.profile.ProfileViewModel
 import com.aucc.game.ui.start.StartViewModel
 import dagger.Binds
 import dagger.Module
@@ -26,6 +27,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LevelsViewModel::class)
     abstract fun bindLevelsViewModel(viewModel: LevelsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileViewModel::class)
+    abstract fun bindProfileViewModel(viewModel: ProfileViewModel): ViewModel
 
     @Binds
     @IntoMap
