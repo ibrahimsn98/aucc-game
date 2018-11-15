@@ -59,6 +59,10 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
         binding.terminalHistory.layoutManager = LinearLayoutManager(activity)
         binding.terminalHistory.adapter = terminalAdapter
 
+        binding.terminalBox.setOnClickListener {
+            binding.terminal.requestFocus()
+        }
+
         binding.terminal.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
@@ -92,6 +96,18 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
             if (level != null) {
                 this.level = level
                 binding.level = level
+
+                if (viewModel.isLevelCompleted(level)) {
+                    binding.completed = true
+
+                    for (step in level.steps!!) {
+                        terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["expected_answer"].toString(), false))
+                        terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["true_answer"].toString(), true))
+                    }
+
+                }else {
+                    binding.completed = false
+                }
             }
         })
     }
@@ -102,7 +118,12 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
         if (answer == step["expected_answer"].toString()) {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["true_answer"].toString(), true))
             showMessage(step["desc"].toString())
-            viewModel.setLevelCompleted(level)
+            this.step++
+
+            if (level.steps!!.size == this.step) {
+                viewModel.setLevelCompleted(level)
+                binding.completed = true
+            }
         }else {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine(
                 compareAnswers(answer, step["expected_answer"].toString()), true))

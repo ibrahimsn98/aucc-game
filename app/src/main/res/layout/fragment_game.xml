@@ -3,6 +3,7 @@
 
     <data>
         <variable name="level" type="com.aucc.game.data.level.Level"/>
+        <variable name="completed" type="Boolean"/>
     </data>
 
     <FrameLayout
@@ -40,6 +41,71 @@
                         android:textColor="@color/colorTextPrimary"/>
 
                 <android.support.v7.widget.CardView
+                        android:visible="@{completed}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/colorBackgroundDark"
+                        android:layout_marginBottom="15dp"
+                        app:cardCornerRadius="5dp">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="15dp">
+
+                        <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/ic_svg_hacker"
+                                android:layout_marginStart="0dp"
+                                android:layout_marginEnd="15dp"/>
+
+                        <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                            <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginBottom="4dp">
+
+                                <TextView
+                                        android:text="[ Completed ]"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="15sp"
+                                        android:layout_marginStart="0dp"
+                                        android:layout_marginEnd="5dp"
+                                        android:textColor="@color/colorTextPrimary"/>
+
+                                <TextView
+                                        android:text="+5 Points"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="15sp"
+                                        android:textColor="@color/colorAccent"/>
+
+                            </LinearLayout>
+
+                            <TextView
+                                    android:text="You have successfully completed this quest!"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/colorTextSecondary"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                        android:id="@+id/terminalBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/colorBackgroundDark"
@@ -73,6 +139,7 @@
 
                             <EditText
                                     android:id="@+id/terminal"
+                                    android:enabled="@{!completed}"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -88,7 +155,6 @@
                 </android.support.v7.widget.CardView>
 
             </LinearLayout>
-
 
         </android.support.v4.widget.NestedScrollView>
 

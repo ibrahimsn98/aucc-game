@@ -12,6 +12,7 @@ import com.aucc.game.base.BaseFragment
 import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.FragmentLevelsBinding
 import com.aucc.game.ui.main.MainActivity
+import kotlinx.android.synthetic.main.fragment_levels.*
 import javax.inject.Inject
 
 class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), LevelsAdapter.AdapterCallback {
@@ -29,7 +30,7 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), Leve
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(activity, viewModelFactory).get(LevelsViewModel::class.java)
 
-        levelsAdapter = LevelsAdapter(viewModel.questIds,this)
+        levelsAdapter = LevelsAdapter(this)
 
         binding.levels.layoutManager = LinearLayoutManager(activity)
         binding.levels.adapter = levelsAdapter
@@ -38,8 +39,16 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), Leve
             binding.swipeRefreshLayout.isRefreshing = false
         }
 
-        viewModel.levels.observe(this, Observer<PagedList<Level>> {
-            levels -> if (levels != null) levelsAdapter.submitList(levels)
+        viewModel.questIds.observe(this, Observer { questIds ->
+            if (questIds != null) {
+                levelsAdapter.questIds.clear()
+                levelsAdapter.questIds.addAll(questIds)
+                levelsAdapter.notifyDataSetChanged()
+            }
+        })
+
+        viewModel.levels.observe(this, Observer<PagedList<Level>> { levels ->
+            if (levels != null) levelsAdapter.submitList(levels)
         })
     }
 

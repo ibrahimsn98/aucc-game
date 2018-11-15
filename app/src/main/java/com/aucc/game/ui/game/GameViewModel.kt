@@ -14,4 +14,8 @@ class GameViewModel @Inject constructor(private val questRepository: QuestReposi
     fun setLevelCompleted(level: Level) {
         questRepository.insert(Quest(level.id, level.title, System.currentTimeMillis()/1000))
     }
+
+    fun isLevelCompleted(level: Level): Boolean {
+        return questRepository.isExists(level.id)
+    }
 }

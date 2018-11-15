@@ -10,8 +10,9 @@ import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.RowLevelLBinding
 import com.aucc.game.databinding.RowLevelRBinding
 
-class LevelsAdapter(private val questIds: List<String>,
-                    private val adapterCallback: AdapterCallback) : PagedListAdapter<Level, RecyclerView.ViewHolder>(Level.DiffCallback) {
+class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAdapter<Level, RecyclerView.ViewHolder>(Level.DiffCallback) {
+
+    val questIds: MutableList<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == 0) return LevelLViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context),

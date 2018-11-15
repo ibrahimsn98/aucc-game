@@ -15,7 +15,7 @@ class StartViewModel @Inject constructor(firestore: FirebaseFirestore) : ViewMod
     private var levelDoc = firestore.collection("levels")
 
     init {
-        levelDoc.get(Source.SERVER).addOnSuccessListener { p ->
+        levelDoc.get(Source.SERVER).addOnSuccessListener {
             status.postValue(true)
         }.addOnFailureListener { e ->
             Log.d(Constants.TAG, e.message)
