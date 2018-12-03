@@ -47,7 +47,6 @@
                 android:layout_marginBottom="46dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-
         <android.support.design.widget.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
                 android:layout_width="match_parent"
@@ -59,6 +58,19 @@
                 app:menu="@menu/bottom_menu"
                 app:itemTextColor="@drawable/bottom_nav_item_back"
                 app:itemIconTint="@drawable/bottom_nav_item_back"/>
+
+        <LinearLayout
+                android:id="@+id/bottomSheet"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:background="@color/colorBackgroundDark"
+                android:elevation="10dp"
+                app:behavior_hideable="true"
+                app:behavior_peekHeight="60dp"
+                app:layout_behavior="@string/bottom_sheet_behavior">
+
+        </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

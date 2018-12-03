@@ -1,5 +1,6 @@
 package com.aucc.game.ui.main
 
+import android.animation.Animator
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -16,12 +17,18 @@ import com.aucc.game.ui.game.GameViewModel
 import com.aucc.game.util.AnimUtils
 import com.aucc.game.util.BottomNavigationViewUtil
 import javax.inject.Inject
+import android.support.design.widget.BottomSheetBehavior
+import android.view.View
+import android.widget.LinearLayout
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnNavigatedListener {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var navController: NavController
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+
+    private var inGame = false
 
     override fun layoutRes(): Int {
         return R.layout.activity_main
@@ -38,6 +45,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnNaviga
         navController.addOnNavigatedListener(this)
 
         BottomNavigationViewUtil.disableShiftMode(binding.bottomNavigationView)
+
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     override fun onNavigated(controller: NavController, destination: NavDestination) {
@@ -50,9 +60,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnNaviga
         navController.navigate(R.id.levels_to_game)
     }
 
+    private val animListener = object: Animator.AnimatorListener {
+        override fun onAnimationRepeat(animation: Animator?) {}
+
+        override fun onAnimationCancel(animation: Animator?) {}
+
+        override fun onAnimationStart(animation: Animator?) {}
+
+        override fun onAnimationEnd(animation: Animator?) {
+            if (inGame) bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+    }
+
     fun setBottomNavVisibility(visible: Boolean) {
-        if (visible) binding.bottomNavigationView.animate().translationY(0f)
-        else binding.bottomNavigationView.animate().translationY(binding.bottomNavigationView.height.toFloat())
+        inGame = !visible
+
+        if (visible) {
+            binding.bottomNavigationView.animate().translationY(0f)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        } else {
+            binding.bottomNavigationView.animate().translationY(binding.bottomNavigationView.height.toFloat()).setListener(animListener)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
