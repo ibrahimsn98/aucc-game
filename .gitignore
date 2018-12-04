@@ -10,6 +10,4 @@
 /captures
 .externalNativeBuild
 /.idea
-/app/src/main/java/com/aucc/game/util/Constants.kt
-/app/build.gradle
 /app/google-services.json
