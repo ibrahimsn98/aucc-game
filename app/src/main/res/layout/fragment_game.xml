@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="level" type="com.aucc.game.data.level.Level"/>
+        <variable name="level" type="com.aucc.game.rest.model.Level"/>
         <variable name="completed" type="Boolean"/>
     </data>
 

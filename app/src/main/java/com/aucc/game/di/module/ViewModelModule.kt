@@ -7,7 +7,6 @@ import com.aucc.game.di.util.ViewModelKey
 import com.aucc.game.ui.game.GameViewModel
 import com.aucc.game.ui.levels.LevelsViewModel
 import com.aucc.game.ui.profile.ProfileViewModel
-import com.aucc.game.ui.start.StartViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -17,11 +16,6 @@ abstract class ViewModelModule {
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(StartViewModel::class)
-    abstract fun bindStartViewModel(viewModel: StartViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -9,10 +9,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
-import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.FragmentLevelsBinding
+import com.aucc.game.rest.model.Level
 import com.aucc.game.ui.main.MainActivity
-import kotlinx.android.synthetic.main.fragment_levels.*
 import javax.inject.Inject
 
 class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), LevelsAdapter.AdapterCallback {
@@ -39,13 +38,13 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), Leve
             binding.swipeRefreshLayout.isRefreshing = false
         }
 
-        viewModel.questIds.observe(this, Observer { questIds ->
+        /*viewModel.questIds.observe(this, Observer { questIds ->
             if (questIds != null) {
                 levelsAdapter.questIds.clear()
                 levelsAdapter.questIds.addAll(questIds)
                 levelsAdapter.notifyDataSetChanged()
             }
-        })
+        })*/
 
         viewModel.levels.observe(this, Observer<PagedList<Level>> { levels ->
             if (levels != null) levelsAdapter.submitList(levels)

@@ -15,8 +15,8 @@ import android.widget.Button
 import android.widget.TextView
 import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
-import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.FragmentGameBinding
+import com.aucc.game.rest.model.Level
 import com.aucc.game.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -98,9 +98,9 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
                 if (viewModel.isLevelCompleted(level)) {
                     binding.completed = true
 
-                    for (step in level.steps!!) {
-                        terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["expected_answer"].toString(), false))
-                        terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["true_answer"].toString(), true))
+                    for (step in level.steps) {
+                        //terminalAdapter.addLine(TerminalAdapter.TerminalLine(step.["answer"].toString(), false))
+                        terminalAdapter.addLine(TerminalAdapter.TerminalLine(step.rightResponse, true))
                     }
 
                 }else {
@@ -111,11 +111,11 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
     }
 
     private fun checkAnswer(answer: String) {
-        val step = level.steps!![step]
+        val step = level.steps[step]
 
-        if (answer == step["expected_answer"].toString()) {
-            terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["true_answer"].toString(), true))
-            showMessage(step["desc"].toString())
+        /*if (answer == step["answer"].toString()) {
+            terminalAdapter.addLine(TerminalAdapter.TerminalLine(step["answer"].toString(), true))
+            showMessage(step["completed_message"].toString())
             this.step++
 
             if (level.steps!!.size == this.step) {
@@ -124,8 +124,8 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
             }
         }else {
             terminalAdapter.addLine(TerminalAdapter.TerminalLine(
-                compareAnswers(answer, step["expected_answer"].toString()), true))
-        }
+                compareAnswers(answer, step["answer"].toString()), true))
+        }*/
     }
 
     private fun compareAnswers(answer: String, trueAnswer: String): String {

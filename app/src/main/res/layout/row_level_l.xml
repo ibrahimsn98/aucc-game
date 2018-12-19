@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="level" type="com.aucc.game.data.level.Level"/>
+        <variable name="level" type="com.aucc.game.rest.model.Level"/>
         <variable name="row" type="int"/>
         <variable name="completed" type="boolean"/>
     </data>
@@ -59,7 +59,7 @@
                         android:textColor="@color/colorAccent"/>
 
                 <TextView
-                        android:text="@{level.desc}"
+                        android:text="@{level.description}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextPrimary"

@@ -3,32 +3,37 @@ package com.aucc.game.ui.levels
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.paging.PagedList
-import com.aucc.game.data.level.Level
-import com.aucc.game.data.level.LevelDataSource
 import com.aucc.game.data.quest.QuestRepository
+import com.aucc.game.rest.datasource.LevelDataSource
+import com.aucc.game.rest.model.Level
+import com.aucc.game.rest.RestRepository
 import com.aucc.game.util.MainThreadExecutor
-import com.google.firebase.firestore.FirebaseFirestore
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class LevelsViewModel @Inject constructor(firestore: FirebaseFirestore, questRepository: QuestRepository) : ViewModel() {
+class LevelsViewModel @Inject constructor(restRepository: RestRepository, questRepository: QuestRepository) : ViewModel() {
 
-    private val dataSource: LevelDataSource
+    private var disposable: CompositeDisposable = CompositeDisposable()
     private val executor = MainThreadExecutor()
 
-    val questIds = questRepository.getIdList
-    private var levelDoc = firestore.collection("levels")
+    private val dataSource = LevelDataSource(restRepository, disposable, object: LevelDataSource.DataSourceCallback {
+            override fun loading(isLoading: Boolean) {
 
-    val levels = MutableLiveData<PagedList<Level>>()
+            }
 
-    init {
-        dataSource = LevelDataSource(levelDoc, object: LevelDataSource.DataSourceCallback {
             override fun onError(message: String) {
 
             }
         })
 
-        levels.value = PagedList.Builder(dataSource, PagedList.Config.Builder()
-            .setPageSize(100).setEnablePlaceholders(true).build())
+    val levels = MutableLiveData<PagedList<Level>>().apply {
+        value = PagedList.Builder(dataSource, PagedList.Config.Builder().setPageSize(10)
+            .setInitialLoadSizeHint(10).setEnablePlaceholders(true).build())
             .setFetchExecutor(executor).setNotifyExecutor(executor).build()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 }

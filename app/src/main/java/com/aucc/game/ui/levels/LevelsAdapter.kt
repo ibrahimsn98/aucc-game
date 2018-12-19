@@ -2,15 +2,16 @@ package com.aucc.game.ui.levels
 
 import android.arch.paging.PagedListAdapter
 import android.databinding.DataBindingUtil
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.aucc.game.R
-import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.RowLevelLBinding
 import com.aucc.game.databinding.RowLevelRBinding
+import com.aucc.game.rest.model.Level
 
-class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAdapter<Level, RecyclerView.ViewHolder>(Level.DiffCallback) {
+class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAdapter<Level, RecyclerView.ViewHolder>(DiffCallback) {
 
     val questIds: MutableList<String> = mutableListOf()
 
@@ -47,7 +48,7 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
             this.level = level
             binding.level = level
             binding.row = adapterPosition + 1
-            binding.completed = questIds.contains(level.id)
+            binding.completed = questIds.contains(level.id.toString())
             onBind = false
         }
     }
@@ -66,8 +67,20 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
             this.level = level
             binding.level = level
             binding.row = adapterPosition + 1
-            binding.completed = questIds.contains(level.id)
+            binding.completed = questIds.contains(level.id.toString())
             onBind = false
+        }
+    }
+
+    companion object {
+        val DiffCallback = object : DiffUtil.ItemCallback<Level>() {
+            override fun areItemsTheSame(oldItem: Level, newItem: Level): Boolean = oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: Level, newItem: Level): Boolean =
+                oldItem.id == newItem.id &&
+                        oldItem.title == newItem.title &&
+                        oldItem.description == newItem.description &&
+                        oldItem.question == newItem.question
         }
     }
 

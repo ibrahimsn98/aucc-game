@@ -11,17 +11,16 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.aucc.game.R
 import com.aucc.game.base.BaseActivity
-import com.aucc.game.data.level.Level
 import com.aucc.game.databinding.ActivityMainBinding
 import com.aucc.game.ui.game.GameViewModel
 import com.aucc.game.util.AnimUtils
 import com.aucc.game.util.BottomNavigationViewUtil
 import javax.inject.Inject
 import android.support.design.widget.BottomSheetBehavior
-import android.view.View
 import android.widget.LinearLayout
+import com.aucc.game.rest.model.Level
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnNavigatedListener {
+class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnDestinationChangedListener {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -42,7 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnNaviga
 
         navController = findNavController(this, R.id.host)
         binding.bottomNavigationView.setupWithNavController(navController)
-        navController.addOnNavigatedListener(this)
+        navController.addOnDestinationChangedListener(this)
 
         BottomNavigationViewUtil.disableShiftMode(binding.bottomNavigationView)
 
@@ -50,7 +49,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnNaviga
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
-    override fun onNavigated(controller: NavController, destination: NavDestination) {
+    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
         binding.appBarLayout.setExpanded(true, true)
     }
 
