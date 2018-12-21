@@ -12,7 +12,7 @@ class RestRepository @Inject constructor(private val restService: RestService) {
         return restService.getLevels(page, perPage)
     }
 
-    fun checkAnswer(id: Int, answer: String): Single<StatusResponse> {
-        return restService.checkAnswer(id, answer)
+    fun checkAnswer(stepId: Int, answer: String): Single<StatusResponse> {
+        return restService.checkAnswer(stepId, answer)
     }
 }

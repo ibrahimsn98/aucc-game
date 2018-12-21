@@ -21,7 +21,6 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_scrollFlags="scroll|enterAlways"
                     android:background="@color/colorPrimary"
                     app:popupTheme="@style/optionsMenuStyle">
 
@@ -37,6 +36,14 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <me.ibrahimsn.particle.ParticleView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:particleColor="@color/colorAccent"
+                app:minParticleRadius="4"
+                app:maxParticleRadius="10"
+                app:particleCount="25"/>
+
         <fragment
                 android:id="@+id/host"
                 android:layout_width="match_parent"
@@ -44,21 +51,7 @@
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 app:navGraph="@navigation/nav_graph"
                 app:defaultNavHost="true"
-                android:layout_marginBottom="46dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-        <LinearLayout
-                android:id="@+id/bottomSheet"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="vertical"
-                android:background="@color/colorBackgroundDark"
-                android:elevation="10dp"
-                app:behavior_hideable="true"
-                app:behavior_peekHeight="60dp"
-                app:layout_behavior="@string/bottom_sheet_behavior">
-
-        </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

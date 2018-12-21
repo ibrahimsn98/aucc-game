@@ -31,7 +31,7 @@ class TerminalAdapter : RecyclerView.Adapter<TerminalAdapter.LineViewHolder>() {
 
     fun addLine(line: TerminalLine) {
         lines.add(line)
-        notifyDataSetChanged()
+        notifyItemInserted(itemCount - 1)
     }
 
     inner class LineViewHolder(private val binding: RowTerminalBinding) : RecyclerView.ViewHolder(binding.root) {

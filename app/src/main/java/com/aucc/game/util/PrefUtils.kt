@@ -9,9 +9,9 @@ class PrefUtils @Inject constructor(context: Context) {
 
     private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
 
-    fun setLevelCompleted(stepId: Int) {
+    fun setLevelCompleted(levelId: Int) {
         val oldSet = getCompletedLevelIds()
-        oldSet.add(stepId.toString())
+        oldSet.add(levelId.toString())
         prefs.edit().putStringSet("completed_levels", oldSet).apply()
     }
 

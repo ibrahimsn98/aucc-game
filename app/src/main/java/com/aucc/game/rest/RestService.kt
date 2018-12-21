@@ -13,5 +13,5 @@ interface RestService {
 
     @FormUrlEncoded
     @POST("levels/check-answer/")
-    fun checkAnswer(@Field("id") id: Int, @Field("answer") answer: String): Single<StatusResponse>
+    fun checkAnswer(@Field("step") stepId: Int, @Field("answer") answer: String): Single<StatusResponse>
 }

@@ -58,6 +58,7 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), Leve
     }
 
     private fun render(viewState: LevelsViewModel.ViewState) {
-        swipeRefreshLayout.isRefreshing = viewState.isLoading
+        if (viewState.isError && viewState.error != null)
+            activity.showMessage(viewState.error)
     }
 }

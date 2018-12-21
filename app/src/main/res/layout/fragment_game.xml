@@ -3,7 +3,6 @@
 
     <data>
         <variable name="level" type="com.aucc.game.rest.model.Level"/>
-        <variable name="completed" type="Boolean"/>
     </data>
 
     <FrameLayout
@@ -11,152 +10,86 @@
             android:layout_height="match_parent"
             android:background="@color/colorBackground">
 
-        <android.support.v4.widget.NestedScrollView
-                android:id="@+id/nestedScrollView"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:padding="15dp"
+                android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                    android:text='@{"[ " + level.title + " ]"}'
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="15dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="17sp"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center_horizontal"/>
 
-                <TextView
-                        android:text='@{"[ " + level.title + " ]"}'
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:textSize="17sp"
-                        android:textColor="@color/colorAccent"
-                        android:gravity="center_horizontal"/>
+            <TextView
+                    android:text='@{level.question}'
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorTextPrimary"/>
 
-                <TextView
-                        android:text='@{level.question}'
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorTextPrimary"/>
+            <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/colorBackgroundDark"
+                    app:cardCornerRadius="5dp">
 
-                <android.support.v7.widget.CardView
-                        android:visible="@{completed}"
+                <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/colorBackgroundDark"
-                        android:layout_marginBottom="15dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                            android:id="@+id/terminalHistory"
+                            android:layout_width="match_parent"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            android:paddingTop="15dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
 
                     <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:padding="15dp">
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:attr/selectableItemBackground">
 
-                        <ImageView
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:src="@drawable/ic_svg_hacker"
-                                android:layout_marginStart="0dp"
-                                android:layout_marginEnd="15dp"/>
-
-                        <LinearLayout
+                        <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:textColor="@color/colorAccent"
+                                android:text="root@aucc:~/$ "
+                                android:textSize="15sp"/>
 
-                            <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_marginBottom="4dp">
-
-                                <TextView
-                                        android:text="[ Completed ]"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textSize="15sp"
-                                        android:layout_marginStart="0dp"
-                                        android:layout_marginEnd="5dp"
-                                        android:textColor="@color/colorTextPrimary"/>
-
-                                <TextView
-                                        android:text="+5 Points"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textSize="15sp"
-                                        android:textColor="@color/colorAccent"/>
-
-                            </LinearLayout>
-
-                            <TextView
-                                    android:text="You have successfully completed this quest!"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="15sp"
-                                    android:textColor="@color/colorTextSecondary"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                        android:id="@+id/terminalBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/colorBackgroundDark"
-                        app:cardCornerRadius="5dp">
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minHeight="100dp"
-                            android:padding="15dp"
-                            android:orientation="vertical">
-
-                        <android.support.v7.widget.RecyclerView
-                                android:id="@+id/terminalHistory"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
-                        <LinearLayout
-                                android:layout_width="match_parent"
+                        <EditText
+                                android:id="@+id/terminal"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                            <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/colorAccent"
-                                    android:lineSpacingExtra="2dp"
-                                    android:lineSpacingMultiplier="1.5"
-                                    android:text="root@aucc:~/$ "
-                                    android:textSize="15sp"/>
-
-                            <EditText
-                                    android:id="@+id/terminal"
-                                    android:enabled="@{!completed}"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="start|top"
-                                    android:textColor="@color/colorTextPrimary"
-                                    android:textSize="15sp"
-                                    android:background="@null"/>
-
-                        </LinearLayout>
+                                android:layout_weight="1"
+                                android:paddingTop="15dp"
+                                android:paddingBottom="15dp"
+                                android:gravity="start|top"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="15sp"
+                                android:background="@null"/>
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-            </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-        </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
 
     </FrameLayout>
 
