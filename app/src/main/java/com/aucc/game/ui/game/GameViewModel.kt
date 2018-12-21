@@ -48,8 +48,4 @@ class GameViewModel @Inject constructor(private val prefUtils: PrefUtils,
     fun setLevelCompleted(level: Level) {
         prefUtils.setLevelCompleted(level.id)
     }
-
-    fun isLevelCompleted(level: Level): Boolean {
-        return prefUtils.getCompletedLevelIds().contains(level.id.toString())
-    }
 }

@@ -16,6 +16,6 @@ class PrefUtils @Inject constructor(context: Context) {
     }
 
     fun getCompletedLevelIds(): MutableSet<String> {
-        return prefs.getStringSet("completed_levels", setOf<String>())!!
+        return prefs.getStringSet("completed_levels", mutableSetOf<String>()) ?: mutableSetOf()
     }
 }

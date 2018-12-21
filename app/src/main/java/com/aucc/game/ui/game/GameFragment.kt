@@ -86,6 +86,7 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
         viewModel.status.observe(this, Observer<StatusResponse> {
             if (it != null)
                 if (it.status) {
+                    viewModel.setLevelCompleted(level)
                     addHistory(level.steps[0].rightResponse, true)
                     bottomSheet.show(activity.supportFragmentManager, "bottom-sheet")
                 } else

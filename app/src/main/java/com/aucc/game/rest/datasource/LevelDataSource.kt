@@ -51,7 +51,7 @@ class LevelDataSource(private val restRepository: RestRepository,
 
                 override fun onError(e: Throwable) {
                     Log.d(Constants.TAG, "Retrofit error: ${e.message}")
-                    if (e.message != null) dataSourceCallback.onError(e.message!!)
+                    //if (e.message != null) dataSourceCallback.onError(e.message!!)
                 }
             })
         )

@@ -34,11 +34,10 @@
 
             <ImageView
                     android:visible="@{completed}"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
                     android:src="@drawable/outline_done_24"
-                    android:elevation="3dp"
-                    android:tint="@color/white"
+                    android:tint="@color/colorAccent"
                     android:padding="2dp"
                     android:background="@drawable/ic_completed_background"
                     android:layout_gravity="bottom|end"/>
