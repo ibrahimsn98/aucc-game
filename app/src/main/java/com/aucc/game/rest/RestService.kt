@@ -8,10 +8,10 @@ import retrofit2.http.*
 
 interface RestService {
 
-    @GET("levels")
+    @GET("levels/levels/")
     fun getLevels(@Query("page") page: Int, @Query("per_page") perPage: Int): Single<ListResponse<Level>>
 
     @FormUrlEncoded
-    @POST("levels/check-answer")
+    @POST("levels/check-answer/")
     fun checkAnswer(@Field("id") id: Int, @Field("answer") answer: String): Single<StatusResponse>
 }

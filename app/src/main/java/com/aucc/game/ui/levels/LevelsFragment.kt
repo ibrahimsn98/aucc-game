@@ -12,10 +12,13 @@ import com.aucc.game.base.BaseFragment
 import com.aucc.game.databinding.FragmentLevelsBinding
 import com.aucc.game.rest.model.Level
 import com.aucc.game.ui.main.MainActivity
+import com.aucc.game.util.PrefUtils
+import kotlinx.android.synthetic.main.fragment_levels.*
 import javax.inject.Inject
 
 class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), LevelsAdapter.AdapterCallback {
 
+    @Inject lateinit var prefUtils: PrefUtils
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var levelsAdapter: LevelsAdapter
@@ -31,27 +34,30 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), Leve
 
         levelsAdapter = LevelsAdapter(this)
 
-        binding.levels.layoutManager = LinearLayoutManager(activity)
-        binding.levels.adapter = levelsAdapter
+        levels.layoutManager = LinearLayoutManager(activity)
+        levels.adapter = levelsAdapter
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.swipeRefreshLayout.isRefreshing = false
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
         }
 
-        /*viewModel.questIds.observe(this, Observer { questIds ->
-            if (questIds != null) {
-                levelsAdapter.questIds.clear()
-                levelsAdapter.questIds.addAll(questIds)
-                levelsAdapter.notifyDataSetChanged()
+        viewModel.levels.observe(this, Observer<PagedList<Level>> {
+            if (it != null) {
+                levelsAdapter.submitList(it)
+                levelsAdapter.completedLevels = prefUtils.getCompletedLevelIds()
             }
-        })*/
+        })
 
-        viewModel.levels.observe(this, Observer<PagedList<Level>> { levels ->
-            if (levels != null) levelsAdapter.submitList(levels)
+        viewModel.viewState.observe(this, Observer<LevelsViewModel.ViewState> {
+            if (it != null) render(it)
         })
     }
 
     override fun onLevelClicked(level: Level) {
         activity.openLevel(level)
+    }
+
+    private fun render(viewState: LevelsViewModel.ViewState) {
+        swipeRefreshLayout.isRefreshing = viewState.isLoading
     }
 }

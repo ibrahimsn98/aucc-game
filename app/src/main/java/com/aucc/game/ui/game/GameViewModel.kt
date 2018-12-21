@@ -2,7 +2,6 @@ package com.aucc.game.ui.game
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.aucc.game.data.quest.QuestRepository
 import com.aucc.game.rest.RestRepository
 import com.aucc.game.rest.model.Level
 import com.aucc.game.rest.model.StatusResponse
@@ -12,8 +11,7 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GameViewModel @Inject constructor(private val restRepository: RestRepository,
-                                        private val questRepository: QuestRepository) : ViewModel() {
+class GameViewModel @Inject constructor(private val restRepository: RestRepository) : ViewModel() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
 

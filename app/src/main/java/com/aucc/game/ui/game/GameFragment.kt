@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
@@ -30,18 +29,6 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
     private lateinit var level: Level
     private var step = 0
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        activity.setBottomNavVisibility(false)
-        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        activity.setBottomNavVisibility(true)
-        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-    }
 
     override fun layoutRes(): Int {
         return R.layout.fragment_game

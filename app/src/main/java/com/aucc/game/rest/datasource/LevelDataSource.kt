@@ -19,10 +19,8 @@ class LevelDataSource(private val restRepository: RestRepository,
                              callback: PageKeyedDataSource.LoadInitialCallback<Int, Level>) {
         dataSourceCallback.loading(true)
 
-        disposable.add(restRepository.getLevels(1, params.requestedLoadSize).subscribeOn(
-            Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object :
-                DisposableSingleObserver<ListResponse<Level>>() {
+        disposable.add(restRepository.getLevels(1, params.requestedLoadSize).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object: DisposableSingleObserver<ListResponse<Level>>() {
                 override fun onSuccess(value: ListResponse<Level>) {
                     Log.d(Constants.TAG, "Retrofit success: Total records ${value.count}")
                     dataSourceCallback.loading(false)
@@ -45,8 +43,7 @@ class LevelDataSource(private val restRepository: RestRepository,
 
     override fun loadAfter(params: PageKeyedDataSource.LoadParams<Int>, callback: PageKeyedDataSource.LoadCallback<Int, Level>) {
         disposable.add(restRepository.getLevels(params.key, params.requestedLoadSize).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object :
-                DisposableSingleObserver<ListResponse<Level>>() {
+            .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object: DisposableSingleObserver<ListResponse<Level>>() {
                 override fun onSuccess(value: ListResponse<Level>) {
                     Log.d(Constants.TAG, "Retrofit success: Total records ${value.count}")
                     callback.onResult(value.results, params.key + 1)

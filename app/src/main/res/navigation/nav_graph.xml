@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/nav_graph" app:startDestination="@id/homeFragment">
-
-    <fragment android:id="@+id/homeFragment" android:name="com.aucc.game.ui.home.HomeFragment"
-              android:label="HomeFragment"/>
+            android:id="@+id/nav_graph" app:startDestination="@id/levelsFragment">
 
     <fragment android:id="@+id/levelsFragment" android:name="com.aucc.game.ui.levels.LevelsFragment"
               android:label="LevelsFragment">
@@ -13,7 +10,4 @@
 
     <fragment android:id="@+id/gameFragment" android:name="com.aucc.game.ui.game.GameFragment"
               android:label="GameFragment"/>
-
-    <fragment android:id="@+id/profileFragment" android:name="com.aucc.game.ui.profile.ProfileFragment"
-              android:label="ProfileFragment"/>
 </navigation>

@@ -1,9 +1,6 @@
 package com.aucc.game.di.module
 
-import android.app.Application
 import android.content.Context
-import com.aucc.game.data.database.AppDatabase
-import com.aucc.game.data.quest.QuestDao
 import com.aucc.game.rest.RestService
 import com.aucc.game.util.Constants
 import com.aucc.game.util.NetworkUtils.hasNetwork
@@ -55,18 +52,6 @@ class AppModule {
     @Singleton
     fun provideRetrofitService(retrofit: Retrofit): RestService {
         return retrofit.create<RestService>(RestService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideRoomDatabase(app: Application): AppDatabase {
-        return AppDatabase.getAppDatabase(app)
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideQuestDao(appDatabase: AppDatabase): QuestDao {
-        return appDatabase.questDao()
     }
 
     @Provides

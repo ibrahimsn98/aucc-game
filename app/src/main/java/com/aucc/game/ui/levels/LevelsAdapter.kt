@@ -13,7 +13,7 @@ import com.aucc.game.rest.model.Level
 
 class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAdapter<Level, RecyclerView.ViewHolder>(DiffCallback) {
 
-    val questIds: MutableList<String> = mutableListOf()
+    var completedLevels: Set<String> = setOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == 0) return LevelLViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context),
@@ -48,7 +48,7 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
             this.level = level
             binding.level = level
             binding.row = adapterPosition + 1
-            binding.completed = questIds.contains(level.id.toString())
+            binding.completed = completedLevels.contains(level.id.toString())
             onBind = false
         }
     }
@@ -67,7 +67,7 @@ class LevelsAdapter(private val adapterCallback: AdapterCallback) : PagedListAda
             this.level = level
             binding.level = level
             binding.row = adapterPosition + 1
-            binding.completed = questIds.contains(level.id.toString())
+            binding.completed = completedLevels.contains(level.id.toString())
             onBind = false
         }
     }
