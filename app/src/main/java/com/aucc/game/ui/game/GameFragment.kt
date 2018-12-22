@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -88,7 +89,11 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
                 if (it.status) {
                     viewModel.setLevelCompleted(level)
                     addHistory(level.steps[0].rightResponse, true)
-                    bottomSheet.show(activity.supportFragmentManager, "bottom-sheet")
+                    binding.terminal.isEnabled = false
+
+                    Handler().postDelayed({
+                        bottomSheet.setMessage(level.steps[step].completedMessage).show(activity.supportFragmentManager, "bottom-sheet")
+                    }, 500)
                 } else
                     addHistory("Wrong move.. You can try again!", true)
         })

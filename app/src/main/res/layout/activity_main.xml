@@ -36,10 +36,10 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <me.ibrahimsn.particle.ParticleView
+        <com.aucc.game.ui.main.ParticleView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:particleColor="@color/colorAccent"
+                app:particleColor="@color/colorBackgroundDark"
                 app:minParticleRadius="4"
                 app:maxParticleRadius="10"
                 app:particleCount="25"/>
