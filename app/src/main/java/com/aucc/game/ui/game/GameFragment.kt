@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
 import com.aucc.game.databinding.FragmentGameBinding
@@ -88,11 +89,17 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
             if (it != null)
                 if (it.status) {
                     viewModel.setLevelCompleted(level)
-                    addHistory(level.steps[0].rightResponse, true)
-                    binding.terminal.isEnabled = false
+                    addHistory(level.steps[step].rightResponse, true)
+
+                    if (level.steps.size == step + 1)
+                        binding.terminal.isEnabled = false
 
                     Handler().postDelayed({
-                        bottomSheet.setMessage(level.steps[step].completedMessage).show(activity.supportFragmentManager, "bottom-sheet")
+                        bottomSheet.setState(level.steps.size == step + 1, level.steps[step++].completedMessage, object: GameBottomSheet.DialogCallback {
+                            override fun onButtonClicked() {
+                                findNavController().navigateUp()
+                            }
+                        }).show(activity.supportFragmentManager, "bottom-sheet")
                     }, 500)
                 } else
                     addHistory("Wrong move.. You can try again!", true)

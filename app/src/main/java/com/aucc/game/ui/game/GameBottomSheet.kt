@@ -12,7 +12,11 @@ import com.aucc.game.R
 
 class GameBottomSheet : BottomSheetDialogFragment() {
 
+    private var dialogCallback: DialogCallback? = null
+    private var state = false
     private var message = ""
+    private var title = ""
+    private var button = ""
 
     private val bottomSheetBehaviorCallback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onStateChanged(@NonNull bottomSheet: View, newState: Int) {
@@ -25,8 +29,19 @@ class GameBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    fun setMessage(message: String): GameBottomSheet {
+    fun setState(state: Boolean, message: String, dialogCallback: DialogCallback): GameBottomSheet {
+        this.state = state
         this.message = message
+        this.dialogCallback = dialogCallback
+
+        if (!state) {
+            title = "[ Message ]"
+            button = "Continue"
+        } else {
+            title = "[ Completed ]"
+            button = "Complete"
+        }
+
         return this
     }
 
@@ -37,14 +52,21 @@ class GameBottomSheet : BottomSheetDialogFragment() {
         val params = (contentView.parent as View).layoutParams as CoordinatorLayout.LayoutParams
         val behavior = params.behavior
 
+        contentView.findViewById<TextView>(R.id.title).text = title
         contentView.findViewById<TextView>(R.id.message).text = message
+        contentView.findViewById<Button>(R.id.close).text = button
 
         contentView.findViewById<Button>(R.id.close).setOnClickListener {
             dismiss()
+            if (dialogCallback != null && state) dialogCallback!!.onButtonClicked()
         }
 
         if (behavior != null && behavior is BottomSheetBehavior<*>) {
             behavior.setBottomSheetCallback(bottomSheetBehaviorCallback)
         }
+    }
+
+    interface DialogCallback {
+        fun onButtonClicked()
     }
 }

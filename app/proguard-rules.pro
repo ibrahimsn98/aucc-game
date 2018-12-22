@@ -19,3 +19,37 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class com.android.support.** { *; }
+-keep class com.google.firebase.** { *; }
+
+-keepattributes Signature
+-keepattributes Exceptions
+
+-dontwarn rx.**
+
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+-dontwarn com.google.errorprone.annotations.**
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+-keep class com.aucc.game.rest.model.** { *; }
+
+-keep class io.reactivex.rxjava2.** { *; }
+-keep class com.google.errorprone.annotations.** { *; }
+-keep class com.crashlytics.sdk.android.** { *; }
