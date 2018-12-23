@@ -7,7 +7,7 @@
               android:label="LevelsFragment">
         <action android:id="@+id/levels_to_game" app:destination="@id/gameFragment"
                 app:enterAnim="@anim/anim_enter_from_right" app:exitAnim="@anim/nav_default_exit_anim"
-                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/anim_exit_to_right"/>
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
     <fragment android:id="@+id/gameFragment" android:name="com.aucc.game.ui.game.GameFragment"

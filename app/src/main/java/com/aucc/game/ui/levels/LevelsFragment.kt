@@ -60,5 +60,8 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), Leve
     private fun render(viewState: LevelsViewModel.ViewState) {
         if (viewState.isError && viewState.error != null)
             activity.showMessage(viewState.error)
+
+        binding.loading.visibility = if (viewState.isLoading) View.VISIBLE else View.GONE
+        binding.swipeRefreshLayout.visibility = if (!viewState.isLoading) View.VISIBLE else View.GONE
     }
 }

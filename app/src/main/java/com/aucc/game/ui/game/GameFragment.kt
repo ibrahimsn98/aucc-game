@@ -65,6 +65,8 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
                             lastProcess = time
                             addHistory(text, false)
                             viewModel.checkAnswer(level.steps[step].id, text)
+                        } else {
+                            addHistory("# No need to rush!", false)
                         }
                     }
 
@@ -106,7 +108,7 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
         })
 
         viewModel.error.observe(this, Observer<String> {
-            if (it != null) addHistory(it, true)
+            if (it != null) addHistory("# Connection error!", true)
         })
     }
 

@@ -24,6 +24,17 @@
                     android:background="@color/colorPrimary"
                     app:popupTheme="@style/optionsMenuStyle">
 
+                <ImageButton
+                        android:id="@+id/back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleX="0"
+                        android:scaleY="0"
+                        android:src="@drawable/ic_arrow_back_white_24dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"/>
+
                 <TextView
                         android:id="@+id/title"
                         android:layout_width="match_parent"
@@ -35,14 +46,6 @@
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
-
-        <com.aucc.game.ui.main.ParticleView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:particleColor="@color/colorBackgroundDark"
-                app:minParticleRadius="4"
-                app:maxParticleRadius="10"
-                app:particleCount="25"/>
 
         <fragment
                 android:id="@+id/host"
