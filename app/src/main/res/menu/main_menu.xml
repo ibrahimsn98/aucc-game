@@ -2,8 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_preferences"
-        android:title="Preferences"
-        app:showAsAction="never" />
+        android:id="@+id/action_profile"
+        android:title="Profile"
+        android:icon="@drawable/outline_account_circle_24"
+        app:showAsAction="always" />
 
 </menu>

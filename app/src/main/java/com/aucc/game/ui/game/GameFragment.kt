@@ -64,7 +64,7 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
                         else if (!processing && time - lastProcess > 1000) {
                             lastProcess = time
                             addHistory(text, false)
-                            viewModel.checkAnswer(level.steps[step].id, text)
+                            viewModel.checkAnswer(level.steps.reversed()[step].id, text)
                         } else {
                             addHistory("# No need to rush!", false)
                         }
@@ -91,13 +91,13 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
             if (it != null)
                 if (it.status) {
                     viewModel.setLevelCompleted(level)
-                    addHistory(level.steps[step].rightResponse, true)
+                    addHistory(level.steps.reversed()[step].rightResponse, true)
 
                     if (level.steps.size == step + 1)
                         binding.terminal.isEnabled = false
 
                     Handler().postDelayed({
-                        bottomSheet.setState(level.steps.size == step + 1, level.steps[step++].completedMessage, object: GameBottomSheet.DialogCallback {
+                        bottomSheet.setState(level.steps.size == step + 1, level.steps.reversed()[step++].completedMessage, object: GameBottomSheet.DialogCallback {
                             override fun onButtonClicked() {
                                 findNavController().navigateUp()
                             }

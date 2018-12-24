@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_svg_hacker"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Merhaba çaylak!\nŞimdiye kadar neler yapmışsın görelim mi?"
+                    android:textSize="18sp"
+                    android:lineSpacingMultiplier="1"
+                    android:lineSpacingExtra="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:textColor="@color/colorTextPrimary"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Çözülen Sorular"
+                    android:textColor="@color/colorTextSecondary"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:textSize="14sp"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_vertical">
+
+                <ProgressBar
+                        android:id="@+id/progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="100"
+                        android:progress="45"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="10dp"/>
+
+                <TextView
+                        android:id="@+id/progressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="5/16"
+                        android:textColor="@color/colorTextSecondary"
+                        android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seçenekler"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:textSize="16sp"/>
+
+            <LinearLayout
+                    android:id="@+id/prefNotifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="15dp"
+                    android:background="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="10dp">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sistem Bildirimleri"
+                            android:textColor="@color/colorTextPrimary"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="16sp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sistem tarafından gönderilen duyuru ve bildirimleri al"
+                            android:lineSpacingMultiplier="1"
+                            android:lineSpacingExtra="3dp"
+                            android:textColor="@color/colorTextSecondary"
+                            android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <Switch
+                        android:id="@+id/prefNotificationsSw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

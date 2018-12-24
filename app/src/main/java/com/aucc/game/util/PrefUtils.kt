@@ -18,4 +18,24 @@ class PrefUtils @Inject constructor(context: Context) {
     fun getCompletedLevelIds(): MutableSet<String> {
         return prefs.getStringSet("completed_levels", mutableSetOf<String>()) ?: mutableSetOf()
     }
+
+    fun getCompletedLevelCount(): Int {
+        return getCompletedLevelIds().size
+    }
+
+    fun setSystemNotificationsEnabled(isEnabled: Boolean) {
+        prefs.edit().putBoolean("system_notifications", isEnabled).apply()
+    }
+
+    fun isSystemNotificationsEnabled(): Boolean {
+        return prefs.getBoolean("system_notifications", true)
+    }
+
+    fun setLevelCount(count: Int) {
+        prefs.edit().putInt("level_count", count).apply()
+    }
+
+    fun getLevelCount(): Int {
+        return prefs.getInt("level_count", 0)
+    }
 }

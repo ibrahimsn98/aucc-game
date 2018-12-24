@@ -23,6 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnDestin
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var navController: NavController
+    private var current = 0
 
     override fun layoutRes(): Int {
         return R.layout.activity_main
@@ -41,12 +42,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnDestin
     }
 
     override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
+        current = destination.id
         if (destination.id != R.id.levelsFragment) {
             binding.back.animate().scaleX(1F).scaleY(1F).translationX(0F).setDuration(200).start()
-            binding.title.animate().translationX(0F).setDuration(200).start()
+            binding.title.animate().translationX(30F).setDuration(200).start()
         } else {
             binding.back.animate().scaleX(0F).scaleY(0F).translationX(-50F).setDuration(200).start()
-            binding.title.animate().translationX(-50F).setDuration(200).start()
+            binding.title.animate().translationX(-75F).setDuration(200).start()
         }
     }
 
@@ -62,9 +64,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnDestin
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> navController.navigateUp()
-        }
+        if (item.itemId == R.id.action_profile)
+            when (current) {
+                R.id.levelsFragment -> navController.navigate(R.id.levels_to_profile)
+                R.id.gameFragment -> {
+                    navController.navigateUp()
+                    navController.navigate(R.id.levels_to_profile)
+                }
+            }
+        else if (item.itemId == android.R.id.home)
+            navController.navigateUp()
 
         return super.onOptionsItemSelected(item)
     }

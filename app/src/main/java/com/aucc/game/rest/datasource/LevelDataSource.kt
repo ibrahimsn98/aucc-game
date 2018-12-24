@@ -6,12 +6,14 @@ import com.aucc.game.rest.model.Level
 import com.aucc.game.rest.model.ListResponse
 import com.aucc.game.rest.RestRepository
 import com.aucc.game.util.Constants
+import com.aucc.game.util.PrefUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class LevelDataSource(private val restRepository: RestRepository,
+class LevelDataSource(private val prefUtils: PrefUtils,
+                      private val restRepository: RestRepository,
                       private val disposable: CompositeDisposable,
                       private val dataSourceCallback: DataSourceCallback) : PageKeyedDataSource<Int, Level>() {
 
@@ -23,7 +25,10 @@ class LevelDataSource(private val restRepository: RestRepository,
             .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object: DisposableSingleObserver<ListResponse<Level>>() {
                 override fun onSuccess(value: ListResponse<Level>) {
                     Log.d(Constants.TAG, "Retrofit success: Total records ${value.count}")
+
+                    prefUtils.setLevelCount(value.count)
                     dataSourceCallback.loading(false)
+
                     callback.onResult(
                         value.results,
                         0,

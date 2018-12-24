@@ -7,10 +7,11 @@ import com.aucc.game.rest.datasource.LevelDataSource
 import com.aucc.game.rest.model.Level
 import com.aucc.game.rest.RestRepository
 import com.aucc.game.util.MainThreadExecutor
+import com.aucc.game.util.PrefUtils
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class LevelsViewModel @Inject constructor(restRepository: RestRepository) : ViewModel() {
+class LevelsViewModel @Inject constructor(prefUtils: PrefUtils, restRepository: RestRepository) : ViewModel() {
 
     private val disposable = CompositeDisposable()
     private val executor = MainThreadExecutor()
@@ -20,7 +21,7 @@ class LevelsViewModel @Inject constructor(restRepository: RestRepository) : View
         value = ViewState(isLoading = true)
     }
 
-    private val dataSource = LevelDataSource(restRepository, disposable, object: LevelDataSource.DataSourceCallback {
+    private val dataSource = LevelDataSource(prefUtils, restRepository, disposable, object: LevelDataSource.DataSourceCallback {
             override fun loading(isLoading: Boolean) {
                 viewState.postValue(viewState.value!!.copy(isLoading=isLoading))
             }
