@@ -44,11 +44,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), NavController.OnDestin
     override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
         current = destination.id
         if (destination.id != R.id.levelsFragment) {
-            binding.back.animate().scaleX(1F).scaleY(1F).translationX(0F).setDuration(200).start()
-            binding.title.animate().translationX(30F).setDuration(200).start()
+            binding.title.animate().translationX((binding.back.width * 1.5).toFloat()).setDuration(200).start()
+            binding.back.animate().scaleX(1F).scaleY(1F).setDuration(200).start()
         } else {
-            binding.back.animate().scaleX(0F).scaleY(0F).translationX(-50F).setDuration(200).start()
-            binding.title.animate().translationX(-75F).setDuration(200).start()
+            binding.title.animate().translationX(0F).setDuration(200).start()
+            binding.back.animate().scaleX(0F).scaleY(0F).setDuration(200).start()
         }
     }
 

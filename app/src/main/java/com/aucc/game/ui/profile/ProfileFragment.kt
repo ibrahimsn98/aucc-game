@@ -1,5 +1,6 @@
 package com.aucc.game.ui.profile
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
 import com.aucc.game.R
@@ -31,7 +32,16 @@ class ProfileFragment : BaseFragment<MainActivity, FragmentProfileBinding>() {
         }
 
         binding.progressText.text = String.format("%1d /%2d", prefUtils.getCompletedLevelCount(), prefUtils.getLevelCount())
-        binding.progress.max = prefUtils.getLevelCount()
-        binding.progress.progress = prefUtils.getCompletedLevelCount()
+        binding.progress.max = 100
+
+        val progress = (prefUtils.getCompletedLevelCount().toFloat() / prefUtils.getLevelCount().toFloat() * 100).toInt()
+        val progressAnimator = ValueAnimator.ofInt(0, progress)
+        val scoreAnimator = ValueAnimator.ofInt(0, prefUtils.getCompletedLevelCount() * 50)
+
+        progressAnimator.addUpdateListener { animation -> binding.progress.progress = animation.animatedValue as Int }
+        scoreAnimator.addUpdateListener { animation -> binding.score.text = resources.getString(R.string.profile_score, (animation.animatedValue as Int)) }
+
+        progressAnimator.start()
+        scoreAnimator.start()
     }
 }

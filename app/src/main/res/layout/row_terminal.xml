@@ -16,7 +16,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
-                android:text="root@aucc:~/$ "
+                android:text="@string/terminal_user"
                 android:textSize="15sp"/>
 
         <TextView

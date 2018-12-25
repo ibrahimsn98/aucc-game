@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        tools:ignore="ContentDescription">
 
     <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -11,19 +13,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_svg_hacker"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"/>
+            <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="20dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp">
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_svg_hacker"/>
+
+                <TextView
+                        android:id="@+id/score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="0dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/ic_score_background"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorAccent"/>
+
+            </FrameLayout>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Merhaba çaylak!\nŞimdiye kadar neler yapmışsın görelim mi?"
+                    android:text="@string/profile_description"
                     android:textSize="18sp"
                     android:lineSpacingMultiplier="1"
                     android:lineSpacingExtra="5dp"
@@ -35,7 +58,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Çözülen Sorular"
+                    android:text="@string/profile_completed_levels"
                     android:textColor="@color/colorTextSecondary"
                     android:layout_marginBottom="3dp"
                     android:layout_marginStart="15dp"
@@ -58,7 +81,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:max="100"
-                        android:progress="45"
                         android:layout_marginStart="0dp"
                         android:layout_marginEnd="10dp"/>
 
@@ -66,7 +88,6 @@
                         android:id="@+id/progressText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="5/16"
                         android:textColor="@color/colorTextSecondary"
                         android:textSize="12sp"/>
 
@@ -75,7 +96,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seçenekler"
+                    android:text="@string/profile_preferences"
                     android:textColor="@color/colorAccent"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="15dp"
@@ -90,7 +111,10 @@
                     android:gravity="center_vertical"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
                     android:background="?android:attr/selectableItemBackground">
 
                 <LinearLayout
@@ -104,7 +128,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sistem Bildirimleri"
+                            android:text="@string/pref_title_system_notifications"
                             android:textColor="@color/colorTextPrimary"
                             android:layout_marginBottom="4dp"
                             android:textSize="16sp"/>
@@ -112,7 +136,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sistem tarafından gönderilen duyuru ve bildirimleri al"
+                            android:text="@string/pref_desc_system_notifications"
                             android:lineSpacingMultiplier="1"
                             android:lineSpacingExtra="3dp"
                             android:textColor="@color/colorTextSecondary"
@@ -124,6 +148,39 @@
                         android:id="@+id/prefNotificationsSw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/prefAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:background="?android:attr/selectableItemBackground">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pref_title_about"
+                        android:textColor="@color/colorTextPrimary"
+                        android:layout_marginBottom="4dp"
+                        android:textSize="16sp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pref_desc_about"
+                        android:lineSpacingMultiplier="1"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="@color/colorTextSecondary"
+                        android:textSize="14sp"/>
 
             </LinearLayout>
 

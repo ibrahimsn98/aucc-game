@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable name="level" type="com.aucc.game.rest.model.Level"/>
@@ -65,7 +66,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorAccent"
-                            android:text="root@aucc:~/$ "
+                            android:text="@string/terminal_user"
                             android:textSize="15sp"/>
 
                     <EditText

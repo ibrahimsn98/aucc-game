@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">AU Cyber Club</string>
+    <string name="title">[ AUC Cyber Club ]</string>
+
+    <string name="terminal_user">root@aucc:~/$ </string>
+    <string name="terminal_connection_error"># Connection error!</string>
+    <string name="terminal_no_need_to_rush"># No need to rush!</string>
+    <string name="terminal_wrong">"Wrong move.. You can try again!"</string>
+
+    <string name="menu_profile">Profile</string>
+
+    <string name="profile_score">$score: %1$d</string>
+    <string name="profile_description"># Merhaba çaylak!\nŞimdiye kadar neler yapmışsın görelim mi?</string>
+    <string name="profile_completed_levels">Çözülen Sorular</string>
+    <string name="profile_preferences">~/Seçenekler</string>
+
+    <string name="pref_title_system_notifications">Sistem Bildirimleri</string>
+    <string name="pref_desc_system_notifications">Sistem tarafından gönderilen duyuru ve bildirimleri al</string>
+    <string name="pref_title_about">Hakkında</string>
+    <string name="pref_desc_about">Ne yazsak buraya?</string>
 </resources>

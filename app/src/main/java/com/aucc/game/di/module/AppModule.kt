@@ -5,8 +5,6 @@ import com.aucc.game.rest.RestService
 import com.aucc.game.util.Constants
 import com.aucc.game.util.NetworkUtils.hasNetwork
 import com.aucc.game.util.PrefUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -52,12 +50,6 @@ class AppModule {
     @Singleton
     fun provideRetrofitService(retrofit: Retrofit): RestService {
         return retrofit.create<RestService>(RestService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideGlide(context: Context): RequestManager {
-        return Glide.with(context)
     }
 
     @Provides

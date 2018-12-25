@@ -66,7 +66,7 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
                             addHistory(text, false)
                             viewModel.checkAnswer(level.steps.reversed()[step].id, text)
                         } else {
-                            addHistory("# No need to rush!", false)
+                            addHistory(getString(R.string.terminal_no_need_to_rush), false)
                         }
                     }
 
@@ -104,11 +104,11 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
                         }).show(activity.supportFragmentManager, "bottom-sheet")
                     }, 500)
                 } else
-                    addHistory("Wrong move.. You can try again!", true)
+                    addHistory(getString(R.string.terminal_wrong), true)
         })
 
         viewModel.error.observe(this, Observer<String> {
-            if (it != null) addHistory("# Connection error!", true)
+            if (it != null) addHistory(getString(R.string.terminal_connection_error), true)
         })
     }
 
