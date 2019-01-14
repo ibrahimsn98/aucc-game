@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable name="level" type="com.aucc.game.rest.model.Level"/>
@@ -10,16 +11,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
+            android:background="@color/colorBackground"
             android:orientation="vertical">
 
-        <TextView
-                android:text='@{"[ " + level.title + " ]"}'
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            <ImageButton
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_back_white_24dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:padding="3dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="15dp"
+                    tools:ignore="ContentDescription"/>
+
+        </LinearLayout>
+
+        <TextView
+                android:text='@{"~/" + level.title}'
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:textColor="@color/colorAccent"
-                android:gravity="center_horizontal"/>
+                android:layout_marginBottom="10dp"/>
 
         <TextView
                 android:text='@{level.question}'

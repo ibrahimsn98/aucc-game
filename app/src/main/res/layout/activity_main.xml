@@ -11,6 +11,7 @@
             android:background="@color/colorBackground">
 
         <android.support.design.widget.AppBarLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_behavior="com.aucc.game.util.FixAppBarBehavior"

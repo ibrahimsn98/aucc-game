@@ -14,7 +14,7 @@
                 android:layout_height="match_parent">
 
             <FrameLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="25dp"
                     android:paddingBottom="20dp"
@@ -40,6 +40,18 @@
                         android:background="@drawable/ic_score_background"
                         android:textSize="20sp"
                         android:textColor="@color/colorAccent"/>
+
+                <ImageButton
+                        android:id="@+id/back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/ic_close_white_24dp"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:layout_gravity="end"
+                        tools:ignore="ContentDescription"/>
 
             </FrameLayout>
 

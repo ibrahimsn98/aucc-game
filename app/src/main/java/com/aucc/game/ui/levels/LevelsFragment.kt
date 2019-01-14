@@ -7,6 +7,7 @@ import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
 import com.aucc.game.databinding.FragmentLevelsBinding
@@ -37,8 +38,15 @@ class LevelsFragment : BaseFragment<MainActivity, FragmentLevelsBinding>(), Leve
         levels.layoutManager = LinearLayoutManager(activity)
         levels.adapter = levelsAdapter
 
+        levels.isNestedScrollingEnabled = false
+        nestedScrollView.isNestedScrollingEnabled = true
+
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = false
+        }
+
+        profile.setOnClickListener {
+            findNavController().navigate(R.id.levels_to_profile)
         }
 
         viewModel.levels.observe(this, Observer<PagedList<Level>> {

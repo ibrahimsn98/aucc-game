@@ -3,6 +3,7 @@ package com.aucc.game.ui.profile
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
 import com.aucc.game.databinding.FragmentProfileBinding
@@ -29,6 +30,10 @@ class ProfileFragment : BaseFragment<MainActivity, FragmentProfileBinding>() {
 
         binding.prefNotifications.setOnClickListener {
             binding.prefNotificationsSw.isChecked = !binding.prefNotificationsSw.isChecked
+        }
+
+        binding.back.setOnClickListener {
+            findNavController().navigateUp()
         }
 
         binding.progressText.text = String.format("%1d /%2d", prefUtils.getCompletedLevelCount(), prefUtils.getLevelCount())

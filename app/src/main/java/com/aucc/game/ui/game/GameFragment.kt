@@ -16,6 +16,7 @@ import com.aucc.game.databinding.FragmentGameBinding
 import com.aucc.game.rest.model.Level
 import com.aucc.game.rest.model.StatusResponse
 import com.aucc.game.ui.main.MainActivity
+import kotlinx.android.synthetic.main.fragment_game.*
 import javax.inject.Inject
 
 class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
@@ -42,6 +43,10 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
 
         binding.terminalHistory.layoutManager = LinearLayoutManager(activity)
         binding.terminalHistory.adapter = terminalAdapter
+
+        binding.back.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         binding.terminal.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
