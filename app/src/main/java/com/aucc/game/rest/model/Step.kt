@@ -4,4 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Step(@SerializedName("id") val id: Int,
                 @SerializedName("completed_message") val completedMessage: String,
-                @SerializedName("right_response") val rightResponse: String)
+                @SerializedName("right_response") val rightResponse: String,
+                @SerializedName("hash") val answer: String)

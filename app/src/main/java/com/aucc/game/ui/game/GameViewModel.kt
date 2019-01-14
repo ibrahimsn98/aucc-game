@@ -2,47 +2,26 @@ package com.aucc.game.ui.game
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.aucc.game.rest.RestRepository
+import android.util.Log
 import com.aucc.game.rest.model.Level
-import com.aucc.game.rest.model.StatusResponse
+import com.aucc.game.rest.model.Step
+import com.aucc.game.util.HashUtils
 import com.aucc.game.util.PrefUtils
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GameViewModel @Inject constructor(private val prefUtils: PrefUtils,
-                                        private val restRepository: RestRepository) : ViewModel() {
-
-    private var disposable: CompositeDisposable = CompositeDisposable()
+class GameViewModel @Inject constructor(private val prefUtils: PrefUtils) : ViewModel() {
 
     val level = MutableLiveData<Level>()
-    val processing = MutableLiveData<Boolean>()
-    val status = MutableLiveData<StatusResponse>()
-    val error = MutableLiveData<String>()
+    val status = MutableLiveData<Boolean>()
 
     fun initialize(level: Level) {
         this.level.value = level
-        processing.value = null
         status.value = null
-        error.value = null
     }
 
-    fun checkAnswer(stepId: Int, answer: String) {
-        processing.value = true
-        disposable.add(restRepository.checkAnswer(stepId, answer).subscribeOn(
-            Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object: DisposableSingleObserver<StatusResponse>() {
-                override fun onSuccess(t: StatusResponse) {
-                    status.postValue(t)
-                    processing.postValue(false)
-                }
-
-                override fun onError(e: Throwable) {
-                    error.postValue(e.message)
-                    processing.postValue(false)
-                }
-            }))
+    fun checkAnswer(answer: String, step: Step) {
+        status.postValue(HashUtils.md5(answer) == step.answer)
+        Log.d("###", HashUtils.md5(answer) + " : " + step.answer)
     }
 
     fun setLevelCompleted(level: Level) {

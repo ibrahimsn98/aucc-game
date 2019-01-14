@@ -10,52 +10,6 @@
             android:layout_height="match_parent"
             android:background="@color/colorBackground">
 
-        <android.support.design.widget.AppBarLayout
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_behavior="com.aucc.game.util.FixAppBarBehavior"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                android:id="@+id/appBarLayout">
-
-            <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?android:attr/actionBarSize"
-                    android:background="@color/colorPrimary"
-                    app:title="@null"
-                    app:popupTheme="@style/optionsMenuStyle">
-
-                <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageButton
-                            android:id="@+id/back"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleX="0"
-                            android:scaleY="0"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/ic_arrow_back_white_24dp"
-                            android:background="?android:attr/selectableItemBackgroundBorderless"
-                            tools:ignore="ContentDescription"/>
-
-                    <TextView
-                            android:id="@+id/title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="@string/title"
-                            android:textColor="@color/white"
-                            android:textSize="17sp"/>
-
-                </FrameLayout>
-
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.AppBarLayout>
-
         <fragment
                 android:id="@+id/host"
                 android:layout_width="match_parent"

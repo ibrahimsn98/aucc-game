@@ -14,9 +14,7 @@ import com.aucc.game.R
 import com.aucc.game.base.BaseFragment
 import com.aucc.game.databinding.FragmentGameBinding
 import com.aucc.game.rest.model.Level
-import com.aucc.game.rest.model.StatusResponse
 import com.aucc.game.ui.main.MainActivity
-import kotlinx.android.synthetic.main.fragment_game.*
 import javax.inject.Inject
 
 class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
@@ -30,8 +28,6 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
     private val terminalAdapter = TerminalAdapter()
 
     private var step = 0
-    private var processing = false
-    private var lastProcess = 0L
 
     override fun layoutRes(): Int {
         return R.layout.fragment_game
@@ -61,17 +57,13 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
                 if(-1 != s.toString().indexOf("\n") ){
 
                     val text = binding.terminal.text.toString().trim()
-                    val time = System.currentTimeMillis()
 
                     if (text != "") {
                         if (text == "clear")
                             terminalAdapter.clearLines()
-                        else if (!processing && time - lastProcess > 1000) {
-                            lastProcess = time
+                        else {
                             addHistory(text, false)
-                            viewModel.checkAnswer(level.steps.reversed()[step].id, text)
-                        } else {
-                            addHistory(getString(R.string.terminal_no_need_to_rush), false)
+                            viewModel.checkAnswer(text, level.steps[step])
                         }
                     }
 
@@ -88,21 +80,17 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
             }
         })
 
-        viewModel.processing.observe(this, Observer<Boolean> {
-            processing = it ?: false
-        })
-
-        viewModel.status.observe(this, Observer<StatusResponse> {
+        viewModel.status.observe(this, Observer<Boolean> {
             if (it != null)
-                if (it.status) {
+                if (it) {
                     viewModel.setLevelCompleted(level)
-                    addHistory(level.steps.reversed()[step].rightResponse, true)
+                    addHistory(level.steps[step].rightResponse, true)
 
                     if (level.steps.size == step + 1)
                         binding.terminal.isEnabled = false
 
                     Handler().postDelayed({
-                        bottomSheet.setState(level.steps.size == step + 1, level.steps.reversed()[step++].completedMessage, object: GameBottomSheet.DialogCallback {
+                        bottomSheet.setState(level.steps.size == step + 1, level.steps[step++].completedMessage, object: GameBottomSheet.DialogCallback {
                             override fun onButtonClicked() {
                                 findNavController().navigateUp()
                             }
@@ -110,10 +98,6 @@ class GameFragment : BaseFragment<MainActivity, FragmentGameBinding>() {
                     }, 500)
                 } else
                     addHistory(getString(R.string.terminal_wrong), true)
-        })
-
-        viewModel.error.observe(this, Observer<String> {
-            if (it != null) addHistory(getString(R.string.terminal_connection_error), true)
         })
     }
 
